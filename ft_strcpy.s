@@ -1,7 +1,7 @@
 section .text
 
 
-_strcpy:
+_ft_strcpy:
 	xor rax, rax
 
 

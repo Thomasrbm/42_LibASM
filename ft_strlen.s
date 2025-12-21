@@ -2,7 +2,7 @@ section .text
 	_start
 
 
-_strlen:
+_ft_strlen:
 	xor rax, rax
 
 .while:
