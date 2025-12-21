@@ -1,0 +1,764 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																					C EST QUOI ?
+
+L asm c est coder les instruction directement au processeur  
+
+chaque coeur a son registre 
+
+RAM = memoire de travail
+REGISTRE CPU = execution du travail (plus petite unite de memoire de travail), travail en cours
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																	Strcture d un executable binaire  : 
+
+.exe OU ELF (linux)
+
+ELF = executable and likable format  (linkable link par un linker pour faire une lib  .so  ou .a    ou core dump (screen de la memoire apres un crash))
+
+
+		TEXT : 
+
+Segment text  : read only, les instruction en langage machine
+
+
+	DATA :
+
+data : les var global qui sont deja init
+bss : les var global non init
+
+
+		STACK :
+
+Stack :  variable local des fonction et adresses de retour des fonction
+Heap :  malloc, var dont taille pas connue a l avance.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																COMPIL
+
+
+pour "compiller"  il faut un assembleur
+
+
+NASM ou GAS
+
+transforme les instructions mov add en code numerique :  langage machine
+
+
+
+NASM est impose ici. (plus lisible askip)
+l autre est le GNU assebleur, syntaxe historique d UNIX
+
+
+
+
+-f elf64  = pour la sorti link en 64bits
+
+
+-no-pie interdit : PIE =  Position Independent Executable
+securite moderne 
+
+signifie qu a chaque fois qu un programme est lance, le système le place a une adresse différente en RAM pour empecher les hackers de predire ou se trouve le code
+
+no pie la desactive
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																		NORME 
+
+You must use the Intel syntax, not the AT&T.
+
+
+Intel (Ce que tu dois faire) : Instruction DESTINATION, SOURCE
+
+    Logique : On lit ça comme une affectation en C : dest = source.
+
+    Exemple : mov rax, 5 (Met la valeur 5 dans RAX).
+
+
+
+AT&T (Interdit) : Instruction SOURCE, DESTINATION  +  des signe bizarres
+
+    Logique : On lit ça comme "va de la source vers la destination".
+
+    Exemple : movq $5, %rax.
+
+
+
+
+
+
+Calling convention : 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+																				Exemple
+
+
+ASM = .s
+
+
+section .text  : pour dire les instruction de code (mov add push)
+
+
+global _start : c est la point d entree du code
+global _main :
+
+
+
+call _main  = le processeur saute vers l etiquette _main
+ret = il retourne juste avant le call
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+																			les registres 
+
+
+sont des cases dans le cpu 
+grave dessus.
+
+c est la memoire de travail immediate
+
+ a la compil le compilateur (nous ici puisque c est de l asm donc on dit nous meme)
+ dit les instruction que devrait faire le cpu dans les registres.
+
+ a l exec le cpu fait les operation grace aux registres.
+
+
+a la base y a 
+a, B ,C ,D de 8bit chacun 
+
+mais chaque gen de cpu add +.  ax faisait 16 et avait 2 emplacement de 8 ou directement 1 de 16. et ca fut increased de gen en gen jusqu a 64 
+mais EAX a pas 2 AX et RAX n a pas 2 EAX.   donc RAX = 64, EAX 32, AX 16 AH 8 poids lourd et ah 8 poid leger ou l inverse ptet (bit poids lourd et leger) 
+
+en 64bits : les premiere cases commance par r
+32 : e
+16 : ax
+8 : al 
+
+
+en 64 on peut aussi use les al ax etc. 
+
+
+tous les registre peuvent tout faire mais ont des roles historiquement assigne
+
+
+
+GENERAUX : 
+
+RAX :  ACCUMLATOR la valeur de retour  + operation
+RBX : BASE pointeur adresse
+RCX :  COUNTER boucle ou manipulation de chaine
+RDX  : DATA division et multiply ou 3e arg
+
+
+
+D ARGUMENTS : 
+
+RDI : 1er argument  (source index)
+RSI : 2ème argument (destination index)
+RDX : 3ème argument
+RCX : 4ème argument
+R8 : 5ème argument
+R9 : 6ème argument
+
+jusqu a 15
+
+
+DE GESTION : 
+
+RSP (Stack Pointer) : Il pointe sur le sommet de la pile (Stack). Il bouge à chaque push ou pop. Ne le touche jamais manuellement à moins de savoir exactement ce que tu fais !
+RBP (Base Pointer) : Il sert à marquer le début du cadre d'une fonction (le "stack frame").
+RIP (Instruction Pointer) : Il contient l'adresse de la prochaine instruction à exécuter. Tu ne peux pas le modifier directement avec un mov, seulement avec des jmp ou call.
+
+
+DE PRESERVATION : 
+
+
+Registres Volatils (Caller-saved) : RAX, RCX, RDX, RSI, , R8 à R11. Tu peux les écraser sans remords.
+Registres Non-volatils (Callee-saved) : RBX, RBP, RDI, R12 a R15. Si tu veux les utiliser, tu DOIS faire un push au début de ta fonction pour sauvegarder leur valeur, et un pop à la fin pour les restaurer.
+
+
+
+REGISTRES SPECIAL : 
+
+
+ZF (Zero Flag) : S'allume si le résultat d'un cmp ou d'une soustraction est 0 (utilisé pour les je / jz).
+SF (Sign Flag) : S'allume si le résultat est négatif.
+
+
+
+
+y a aussi des registre x87 pour les floats askip
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+																					ETAPES PAR ETAPES : 
+									
+
+
+code en .s = instruction au cpu
+nasm = traduit en language machine
+ld ou gcc = link en ELF
+l exec ./  = l OS met les instruction de L ELF dans la RAM , cree stack heap et segment text 
+
+registre s active = voit les instruction  prend les value de la ram et les manipules 
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																								LINKAGE
+
+le linkage :  mettre tout tes codes ensemble pour en faire un programme
+
+
+les .o sont des fichier incomplet qu il faut link
+langage machine
+c est aussi des bout de code isole qui fonctionne pas independamment
+
+mais manque adresse des fonctions externe de la libc ou autre par ex.
+
+un fois link on a le programme complet des instruction en langage machine.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+																					ERNO
+
+extern __error = macos 
+errno_location =  linux
+
+
+
+erno = la ou on stock le vrai exit code (erreur)
+
+C convention revoit que -1 et stock l erreur dans errno.
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+																						THREAD
+thread sont pas des truc physique 
+
+
+chaque coeur a des thread.
+
+8 coeur 16 thread
+
+
+
+
+mais on peut faire plus de thread CAR  :
+
+
+thread logiciel sont different. ton pc fait tourner qq milli sec certains thread puis screen l etat memoire
+puis au suivant etc et arrive quand meme a faire le calcul tellement vite qui impression de pleins de thread 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+																								SYSCALL DEF
+
+syscalls  =  faire des appelle kernel pour qu il ecrive a l ecran ou lise un fichier. 
+faut demander la permission au kernel.
+
+
+le programme peut pas faire ca lui meme il demande l autorisation 
+
+
+
+evite le virus, programme bug qui nique les composant, ou programme concurrent en meme temps
+
+
+
+centralise la prise de decision importante dans un programme securisee.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+																	SECTION (les .data etc)
+les sections = organistion des donnes par nature 
+
+
+	CODE :
+
+
+.text = instruction machine, le code asm
+.init =  doit s exec avant le main   init
+.fini = doit s exec avant aussi  nettoyage
+
+	DATA / VAR : 
+
+.data = les var global ou statique deja init au debart => g = 42
+.bss =  les var non init au depart  =>    int tab[1000]
+.rodata = read only data =>  char *str "hello"  
+
+	LINKAGE : 
+
+.plt = la ou stack les fonction de lib externe
+.got = adresse ou sont les fonction appeler par plt
+.dynsym =
+.dynstr =
+
+	INFOS / META DATA :
+
+
+.symtab = c est ce que la commande  nm affiche
+.strtab  = 
+.debug_* =  pour gdb ou valgrind avec -g , les infos de ligne, nom de variable local
+.comment  = pour dire la version du compil et os 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Readonly rodata
+
+
+
+char *str = "hello" en rodata   => stocker dans rodata = non modif
+
+char str[] = "hello"  non   => stocker dans la stack, la RAM  = modifiable
+
+
+
+interet de la rodata = securite anti hackers
+
+
+
+
+un progamme qui verif une string precise "..." ne doit pas pouvoir etre intercepter en cours d exec et etre changer par autre commande 
+donc on cree des string incheageable.
+
+si changer = segfault. 
+
+
+
+
+
+
+TOUT EST DANS LA RAM.
+
+
+la ram separe en 
+
+rodata = incheageable
+heap = on sait pas a l avance la taille
+stack = on sait a l avance 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+_start :  point d entree du code, la ou le cpu commence a lire. 
+
+
+le kernel en a besoin. 
+en C c est le main. 
+
+
+ca init la memoir, gere les signaux etc.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+
+
+
+
+RAM  = Random Access
+
+
+avant les data etait sur bande magnetique, donc pour aller chercher valeur en fin de bande fallait faire masse allez-retour
+
+
+le systeme d adressage de la ram fait qu aller chercher n importe quelle valeur prend le meme temps.
+donc on a une zone de travail ou aller se rappeler des instruction a suivre avec un vitesse constante pour n importe quel programme.
+
+
+comme c est electrique et que tout est agence a qq milimettre la difference existe mais c est tres negligeable.
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+le BUS = le fil de cuivre entre la RAM et le registre CPU
+
+
+bus error arrive si : certain cpu veulent que les donne soient alligne en memoire
+si la demande en asm ne fait pas correctement les appel et que va pas chercher truc allginer le bus refuse.
+
+
+bus par rapport au transport 
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+																					SYNTAX
+
+
+
+
+;   pour mettre des comms 
+
+
+mov   =  assingnation.  copie valeur de droite dans gauche
+push / pop = LIFO   push rax.  met haut de rax dans la pile.  pop rbx. met haut de pile dans rbx
+
+
+add = dest, src : dest = dest + src
+sub = dest, src : dest = dest - src
+inc = incremente
+dec = decremente
+
+
+lea = calcul et assigne. Exemple
+
+
+mov rax, [rbx + 8] : Va chercher la valeur stockée à l'adresse rbx + 8.
+lea rax  : assigne [rbx + 8]
+
+
+
+
+db = define byte 1 octet
+dw  = define word = 2 octet
+dd = double word = 4
+dq = quad = 8  (taille d un rax)  64bit
+
+
+
+
+
+
+
+
+
+cmp va faire une soustraction et activer des flags dans le registre  EFLAGS  = zf si result = 0 donc egal, SG si negatif, et OF si overflow etc
+
+
+
+les JUMPS = les condition, if elsem goto etc
+
+jmp = goto
+
+je  = jmp if equal  (zf = 1)
+jne = jmp if not equal !=   (zf = 0)
+jz =  jump is zero (zf = 1)
+jl = lesser than
+jg = greater
+
+jge = sup egal
+jle = inf egal
+
+
+pour les unsigned 
+
+ja = jump if above (a > b)
+jb  = a < b
+jae 
+jbe
+
+
+call : appelle une ft
+ret : retourne en dehors de la ft
+
+
+
+
+fin pour aller en fin de condition 
+
+
+
+
+
+CONVERT TO ASM : https://www.codeconvert.ai/c-to-assembly-converter?id=e474b3fc-1fce-4211-b2c5-55708bb23085
+
+
+
+			IF ELSE
+
+
+en c 
+
+
+if (rax == rbx) {
+    // bloc A
+} else {
+    // bloc B
+}
+
+
+
+cmp rax, rbx      ; Comparaison
+    jne label_else    ; Si PAS égal, on saute au bloc B
+    mov rcx, 1        ; Le code du "if"
+    jmp fin           ; On saute par-dessus le "else" pour ne pas l'exécuter !
+
+label_else:
+    mov rcx, 0        ; Le code du "else"
+
+fin:
+    ; la suite du programme...
+
+
+
+
+
+
+
+	 WHILE
+
+
+
+while (rax < 10) {
+    rax++;
+}
+
+
+
+
+debut_while:
+    cmp rax, 10       ; 1. On vérifie la condition
+    jge fin_while     ; 2. SI la condition est FAUSSE, on saute à la fin (Jump if Greater or Equal)
+
+    inc rax           ; 3. CORPS DE LA BOUCLE (le code à l'intérieur du while)
+    
+    jmp debut_while   ; 4. On remonte au début pour retester la condition
+
+fin_while:
+    ; ... suite du programme
+
+
+
+
+size_t i = 0;
+while (str[i] != '\0') {
+    i++;
+}
+return (i);
+
+
+
+xor rax, rax              ; i = 0 (RAX servira de compteur et de retour)
+
+boucle:
+    cmp byte [rdi + rax], 0   ; Condition : str[i] == '\0' ?
+    je  fin                   ; SI égal à 0, on sort du while
+    
+    inc rax                   ; CORPS : i++
+    jmp boucle                ; On boucle
+
+fin:
+    ret                       ; On retourne RAX
+
+
+
+
+0xA = \n  (ou 10 cest pareil)
+
+
+,  pour separer (\n est hors de la str)
+meme entre les registre et la valeur etc.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+													 SECTION DATA
+
+
+
+
+
+
+Tout ce qui est declarer la sera a la suite.
+
+
+
+section .data
+
+	label  (nom de var) +  (db dd etc pour declarer la var) +  valeur
+
+
+	on peut rajouter len  
+
+
+	len equ $ - msg
+
+
+
+	equ  = equivalence.  comme une macro en asm.  partout ou y aura len marque il remplace par le result. 
+
+
+	$ pointe vers l adresse de travail actuel.
+	 apres une declration le curseur est sur la last case declarer
+
+	si le debut de la string est est sur 100. et fin sur 106.
+	$ vaut 106 arriver en fin de str.
+
+
+	msg pointe sur 100 donc result 6
+
+
+
+	on use cette syntaxe au lieu de direct marquer le chiffre car permet de maintenir facil.
+	peux modif la string ca va calcul auto la taille  + tu te trompe pas en comptant la taille
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+													HOW TO syscalls
+
+
+
+
+
+w3challs : 
+https://syscalls.w3challs.com/?arch=x86_64 
+
+tous les syscalls
+
+
+
+man 2 syscall 
+
+
+descendre 
+pour chaque architecture de processeur il y a quel argument use de 1 a 6 (7 parfois)
+
+
+sur  x86-64   =     rdi   rsi   rdx   r10   r8    r9  
+
+
+et rax pour le return value au debut
+
+les syscall ici peuvent prendre entre 1 et 6 param max.
+
+
+
+ID = pour identifiquer le type de syscall ,  cest le nombre qu on file a RAX
+
+
+
+un write  a id 1 (rax 1 )  + 3 param (sortie, msg, taille)
+exit id 60 + 1 paran (exit code)
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+													LE RETURN 0 
+
+
+
+
+	mov, rax 60
+	mov, rdi 0
+	syscall
+  
+
+pour que le programme s arrette proprement. 
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+																					BYTE = 8,  pk ? 
+
+
+
+1/  char a rpz
+
+car plus ou moins 200+ char diff a se rpz.
+
+
+pc parle en binaire. assemblage de bit suffisant pour faire est 8 = 256 = place en plus pour d autre char.
+
+
+
+
+2/ allignement materiel
+
+
+faut chiffre paire puissance de 2.
+
+9 ou + c est trop pas operation ou trop de place. 
+
+fallait un multiple de deux suffisament grnad pour etre utile mais pas trop pour pas prendre de place.
+
+
+pour etre alligner car sinon faut faire plus de lecture pour lire 1 valeur 
+CPU lit par bloc d octet de taille fix de puissance de 2
+
+
+puiss de 2 car binaire.
+
+
+donc si taille des bytes etait pas mult de 2 les valeur serait sur 2 ou plus segment de lecture du cpu.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	\
+
+																				Pk pc prefere se rpz en HEXA 0x ... ? 
+
+
+
+il lit en binaire mais nous ecrit les valeur (compil etc ) en HEXA
+
+car bon compromis entre efficience (multiple de 2 donc peu de signe rpz bcp de baleur binaire)
+1 chiffre hexa = 4 bits, allignement
+et reste lisible (prend moins de place)  1 char pour 4 bits
+
+decimal = 3.32 bits
