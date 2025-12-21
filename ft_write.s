@@ -1,6 +1,6 @@
 section .text
 
-_ft_read:
+_ft_write:
 	mov rax, 1
 	syscall
 	ret
