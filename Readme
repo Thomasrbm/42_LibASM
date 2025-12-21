@@ -869,3 +869,30 @@ qword
 
 
 mot pour que nasm comprennent quel taille on compare ici
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+												STRCPY assinagion memoire a memoire
+
+
+
+on peut pas direct assigner de memoir a memoire 
+mov byte [rdi + rax], [rsi + rax]
+
+
+on doit use un registre intermediaire. 
+
+
+dl est de suffisament petite taille (sous registre de rdx)
+on use pas DIL ou SIL car se sont des sous registre de rdi et rsi
+
+ducoup ca modifierait la memoir du registre qu on essaie d assigner
+on prend un sous registre non used.
