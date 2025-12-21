@@ -433,7 +433,12 @@ bus par rapport au transport
 
 
 
+
 ;   pour mettre des comms 
+
+
+xor (xor un valeur sur elle meme la met a 0. car tous bit identique donc resultat 0)
+
 
 
 mov   =  assingnation.  copie valeur de droite dans gauche
@@ -762,3 +767,105 @@ car bon compromis entre efficience (multiple de 2 donc peu de signe rpz bcp de b
 et reste lisible (prend moins de place)  1 char pour 4 bits
 
 decimal = 3.32 bits
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+					ABI , convention d appel et parametre de fonction
+
+
+
+
+En c tu declare char * ft_strlen (char * str)
+
+
+
+
+ici tu prend pas de param en asm.
+
+
+
+
+ordre des param seront toujours : RDI, RSI, RDX RCX R8 R9
+
+
+
+Les fonctions sont aveugles, elle n ont pas besoin de preciser je dois recevoir tell type etc.
+par convention premier param toujours le meme.
+
+cest la responsabilite de l appelant de bien use la fonction qu il appel.
+
+
+
+il sait que strlen prend 1 param et donc que 1er param est rdi DONC 
+il doit charger rdi correctement avant l appel. 
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+														RETURN une value
+
+
+
+rax sera toujours la value de return.
+apres l avoir maj  on fait ret.
+
+
+donc l appelant va recevoir rax maj apres sont call.
+
+
+debut toujours mettre rax a 0 
+xor (xor un valeur sur elle meme la met a 0. car tous bit identique donc resultat 0)
+xor rax, rax
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+													Les label_else
+
+
+
+les labels locaux quand on faunt un while par ex
+
+
+commence par un .  .while         et sont lie au fichier 
+
+permet de jump facilement
+
+
+
+sans mettre de . = appelable ailleurs. par convention on met un _ 
+
+
+donc le _start,  le _strlen etc
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+															cmp
+
+
+
+byte 
+word
+dword
+qword
+
+
+
+mot pour que nasm comprennent quel taille on compare ici
