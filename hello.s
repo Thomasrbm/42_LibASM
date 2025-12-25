@@ -12,7 +12,7 @@ _start:
 	mov rsi, msg
 	mov rdx, len
 	syscall
-
+https://github.com/Thomasrbm/42_LibASM
 	mov rax, 60
 	mov rdi, 0
 	syscall
