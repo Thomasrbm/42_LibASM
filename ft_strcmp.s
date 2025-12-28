@@ -5,7 +5,7 @@ ft_strcmp:
     xor rax, rax
 
 .while:
-    mov bl, byte [rdi + rax]
+    mov bl, byte [rdi + rax] ; mov ici car sinon si ca go fin sans init bl ou cl cest mauvais
     mov cl, byte [rsi + rax]
 
     cmp bl, 0
