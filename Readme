@@ -896,3 +896,70 @@ on use pas DIL ou SIL car se sont des sous registre de rdi et rsi
 
 ducoup ca modifierait la memoir du registre qu on essaie d assigner
 on prend un sous registre non used.
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+													STACK AND HEAP
+
+
+
+STACK : https://www.youtube.com/watch?v=u_-oQx_4jvo  <==== best video on asm
+
+
+
+La stack est LIFO : chaque fonction créé une stack frame ou elle stock dans l ordre à partir des param de la ft toutes les valeurs fixe à des 
+adresses dans la RAM.  
+
+STACK FRAME :
+
+La pile GRANDIT VERS LE BAS 
+
+elle évolue tout au long du progamme
+
+
+ebp = base pointeur, le point actuel ou tu en est dans ton programme, le "bas" de la mémoire.
+le bas de la STACK FRAME actuel.  change a chaque ft.
+
+
+esp = le "haut" de la mémoire actuellement réservé par la stack. 
+La pille commence en haut (adress de 1000 par ex) et se stack vers le base (en soustrayant)
+
+
+
+Si tu écris x = 10;, 
+l'assembleur fera quelque chose comme : 
+
+mov [EBP-4], 10 (Met 10 dans la première case de l'espace qu'on vient de réserver sous EBP).
+
+
+
+
+main()  // ebp pointe sur main
+{
+	// push adress de la ligne sur la stack (adresse de retour)  => push EBP (push l adress du main sur la stack)
+	foo() ; // push ebp sur la stack (pour pouvoir récup main apres)
+		// fin de foo, pop de la stack vers ebp pour récup main. avec ret récup la ligne du main 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HEAP : pour les ptrs, smart ptr, les obnjets et les classes
