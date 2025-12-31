@@ -963,3 +963,31 @@ main()  // ebp pointe sur main
 
 
 HEAP : pour les ptrs, smart ptr, les obnjets et les classes
+
+
+
+
+------------------------------------
+
+pour passer d'un noeud a l'autre d'une liste chainée
+
+on a l'adresse du boeuf actuel stocké dans rdi.
+
+pour passer à l'adresse suivante on fait 
+rdi = [rdi + 8]
+
+
+
+
+
+Pour accéder à la valeur d'une liste 
+
+on stock dans mov rcx, [rdi]
+
+[] ça deréférence l'adresse.
+
+ainsi deréférence avec plus ou moins d'offset ça accède aux différentes values.
+
+[rdi + 8] pour valeur b etc.
+
+
