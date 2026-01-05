@@ -1,0 +1,51 @@
+
+
+How computers works : https://www.youtube.com/watch?v=5f3NJnvnk7k
+
+Veritasium : https://youtu.be/IcrBqCFLHIY?si=tfkRknDsev7YafuK
+
+
+Moins conducteurs ques les métaux, ont très peu d'éléctrons libres 
+(ceux qui permettents de faire passer le courrant)
+
+Ont peut néanmoins les dopper. enleurs ajoutants d'autres éléments qui
+ajoutes des éléctrons libres.
+
+On peut le faire positiviement ou negativement
+
+
+dans un bout de silicium on peut mettre une partie positive et deux negativement
+(ou l'inverse jsais plus)  et créer une sorte de champs
+qui ne laisse pas passer l'écltricité
+
+ainsi "l'interrupteur est off" c'est 0
+
+
+Mais un petit voltage envoyé dedans et le courrant repasse
+c'est le 1
+
+ainsi dans un miniscule matériau, on peut créer un interrupteur 
+peut chère, miniscule et ultra rapide et simple a actionner. 
+
+
+
+Transistor viennent en paires.
+un P et un N ainsi selon celui reste ouvert on sait si c est 0 ou 1
+
+
+combiner des paires de transistor permet de faire les portes logiques
+
+
+HOW TRANSISTOR RUN CODE :
+porte logiques : https://www.youtube.com/watch?v=HjneAhCy2N4
+
+les portes logiques sont faitavec la lyographie.
+On deisgne tout les emplacement de transistor pour les créer.
+
+
+le multiplexeur du cpu ou gpu etc dirige les input au bon endroit au bon 
+moment.
+
+y 'a aussi des puces FGPA, la c est pas pensé à l 'avance
+c'est le pc qui va uses le transistor et créer les portes logiques 
+par abstraction selon ses besoins.
