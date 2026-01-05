@@ -23,3 +23,13 @@ ft_strcmp:
     movzx rdx, cl
     sub rax, rdx
     ret
+
+
+
+
+
+
+
+
+
+    

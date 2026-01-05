@@ -1,0 +1,79 @@
+A REVISER
+
+
+============================================================================================================
+                            les sections c est quoi, les types de sections ? 
+
+
+
+ça délimite juste les senction du code assembleur et dit ça doit etre lu comme ça etc
+ça c'est du code, ça c'est ... etc.
+
+aucun lien hardware, que du software pour indiquer au cpu
+
+============================================================================================================
+                                les syscall c est quoi ?
+
+
+c'est la frontière exacte entre le software et le hardware
+
+y'a que le kernel qui peut demander instruction au hardware.
+Pour y avoir acces via programme codé/application
+
+
+on utilise la fonction syscall et en fonction de ce qu'on a mit dans les registre il appel le syscall
+correspondant qui va faire une operation kernel
+
+
+le cpu se STOP passe de user mode a kernel mode
+
+qui va faire une opération HARDWARE
+
+
+ainsi write peut écrire sur un fd (graver le SSD ou HDD ducoup)
+
+
+
+
+
+============================================================================================================
+ 
+            les registres c est quoi ? leur nom et leur fonctions
+
+
+
+============================================================================================================
+             meme les autres registres  ( à virgule etc)
+
+
+
+
+============================================================================================================
+
+ cmp toujours avec mot ou que mot si RAM ?
+
+
+
+============================================================================================================
+
+ la norme ABI
+
+
+============================================================================================================
+ Les . ou pas 
+ les mot global extern etc dans la lib 
+
+
+
+============================================================================================================
+ 
+ pk xor rax rax et pas mov rax 0 
+
+============================================================================================================
+
+ pk on peut pas cmp our allcoate deux espace meme sur meme ligne passer par tiers
+============================================================================================================
+
+ pk on dit mov si c est pour allocate
+
+============================================================================================================
