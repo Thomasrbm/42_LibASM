@@ -20,7 +20,7 @@ atoi_base:
    cmp [rdi + rcx], 9
    jne .get_sign
    
-   je .inc_space
+   jmp.inc_space
 
 
 
