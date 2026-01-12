@@ -1,0 +1,240 @@
+
+https://youtu.be/N_42ZemuYyk
+
+
+=================================  REGISTRE     =================================
+
+c'est juste une unité de stockage qui garde en mémoire  ce qu'on y met pour apres être calculé
+
+
+
+Les registres sont gravés dans le cpu
+faits de silicium
+
+
+=================================   DIFF AVEC RAMS    =================================
+
+
+contrairement à la RAM qui doit être alimenté en continue pour garder en mémoire (RAM fonctionne avec des condensateurs)
+le registre est instant casi car dans  le cpu donc doit pas aller chercher loins l 'info.
+
+
+                    FLIP FLOP / BASCULE = le fait que le registre garde un état apres être set
+
+
+Comme il est fait de transistor en silicium ou autre semi conducteur il est ultra rapide
+
+La RAM est moins chère mais plus lente + faut l'activé tout le temps
+
+
+Registre = SRAM
+RAM = DRAM
+VRAM = dans le GPU (soudé dedans, semi conducteurs, pas besoin d'aller loins chercher la ram)
+
+
+
+=================================   LE CALCULATOR    =================================
+
+
+l'ALU (Unité Arithmétique et Logique)
+est placée entre les registres et c'est elle qui fait les calculs.
+
+
+=================================   LA CLOCK    =================================
+
+
+LA CLOCK EST DANS LA CARTE MERE (le quartz)
+
+
+L'Horloge c'est un signal qui fait bas haut bas haut
+
+c'est crée souvent par un oscillateur à quartz qui crée une "vibration" (voir le readme dessus)  lorsuq'on appliqu un courrant éléctrique
+
+
+élec le fait vibrer, (coup de jus du démarrage pc),  puis il renvoit petit signal
+signal amplifié le refait vibrer etc 
+
+générateur d'horloge prend la vibration est fait signal carré (0 ou 1)  = donne le tempo pour l'action suivante
+
+
+
+
+le PLL (DANS LE CPU) amplifie le signal selon la vitess CPU prévue = en Ghz (milliard), avant était en millions.
+donne nombre calculuc faisable par seconde max.
+
+
+
+On peut overclocker mais limité physique = chaleure produite
+
+
+
+=================================   LE CONTROL UNIT    =================================
+
+
+C'est le chef d'orchestre qui active dans le bon odre les différent composant du cpu
+
+Fetch
+Decode
+execute
+
+
+
+met ça dans le registre
+calcul le
+interprete le resultat,
+lance le programme etc.
+
+
+
+elle prend chqaue front montant (moment passage de  0 a 1 )  pas les plateau (observe la difference)
+
+
+============================= L' ALU ==============================================
+
+
+Arithmetic Logic Unit.  
+
+
+plusieurs au milieu des registre dans chaque coeur, prend les donné et les calcul
+
+donc l'alu recoit une instruction en signal binaire de CU (control unit) qui dit fait ça avec ça 
+
+
+
+
+=================================   LES COEURS    =================================
+
+
+chaque coeur = mini cpu avec ALU; control unit etc
+démultiplie les possibles
+
+
+
+=================================   LES THREADS     =================================
+
+y'a l'hyperthreading physique  =  le 8 coeurr / 16 thread 
+
+
+ça veut dire 2 jeux de registre par coeur
+
+
+
+ça double pas vraiment la puissance pour les vrai gros calcul car 1 seul ALU pour  2 thread et 1 CU aussi
+
+mais ça comble plus de trou (20 30% opti)
+
+
+
+
+
+
+
+EN software, tu créee un thread en C, le kernel crée un thread et dit = dans tel programme c'est tel thread puis tel thread qui calcul
+le cpu donne l'impression de multi thread car va très vite, met l'un en pause puis fait l'autre etc très vite ducoup
+tu peux mettre masse thread , mais en réalité c'est les un après les autres
+
+
+
+
+=================================   CACHE    =================================
+
+zone stockage ultra rapide ou la RAM stock ce qui va servir tout de suite après pour ne pas a faire 
+full aller retour CPU ram a chaque fois 
+
+
+car RAM plus lente que CACHE
+
+
+
+
+Cache L1 tout près RAM ultra rapide mais peu stockage
+puis vers L3 pleins stockage moins rapide  ( on empile en général)
+
+
+
+=================================   MMU    =================================
+
+
+
+gpt explique mieux que moi là  : 
+
+
+. Pourquoi le MMU existe-t-il ?
+
+Imagine que tu lances deux programmes en C en même temps.
+
+    Dans le programme 1, une variable est stockée à l'adresse mémoire 0x1234.
+
+    Dans le programme 2, une variable est aussi stockée à l'adresse 0x1234.
+
+Sans MMU, les deux programmes s'écraseraient l'un l'autre. Le MMU permet à chaque programme de croire qu'il est seul au monde et qu'il possède toute la mémoire de l'ordinateur.
+
+
+
+
+
+2. Sa fonction n°1 : La Traduction (Adresse Virtuelle vs Physique)
+
+Le MMU fait une traduction instantanée à chaque fois que le CPU veut lire ou écrire :
+
+    Adresse Virtuelle : L'adresse que ton code C voit (ex: 0x4000).
+
+    Adresse Physique : L'endroit réel dans la barrette de RAM (ex: 0x89AB).
+
+Le MMU possède une petite table de correspondance ultra-rapide appelée le TLB (Translation Lookaside Buffer). C'est comme un dictionnaire de poche pour traduire les adresses en quelques nanosecondes.
+
+
+
+
+
+3. Sa fonction n°2 : La Protection
+
+C'est le MMU qui empêche ton PC de "planter" totalement à chaque erreur de code.
+
+    Il vérifie si un thread a le droit d'accéder à une zone mémoire.
+
+    Si ton code C essaie d'écrire dans une zone réservée au Kernel (le système), le MMU bloque l'opération et envoie un signal au CPU. C'est ce qui provoque la fameuse erreur : Segmentation Fault (ou Access Violation).
+
+
+
+
+
+4. Le lien avec le "Pagination" (Paging)
+
+Le MMU ne travaille pas octet par octet (ce serait trop lent). Il découpe la mémoire en blocs appelés Pages (généralement de 4 Ko).
+
+Lorsqu'un thread demande une donnée :
+
+    Le CPU donne l'adresse virtuelle au MMU.
+
+    Le MMU regarde dans sa table : "La page virtuelle 50 correspond à la page physique 200 en RAM".
+
+    Si la page n'est pas en RAM (mais sur le disque dur), le MMU déclenche une Page Fault. L'OS va alors chercher la donnée sur le SSD et la met en RAM.
+
+
+
+
+=================================   FPU    =================================
+
+
+
+Le FPU (Floating Point Unit)
+
+
+
+comme ALU mais pour float, à teck de l'alu 
+
+
+
+
+================================= Le BUS    =================================
+
+
+
+piste de cuivre reliant RAM au CPU (rapport au transport)
+
+
+prend des données alligné (64 bit par exemple)
+
+
+si tu force à lire sur 2 block de lecture qui se chevauche = bus error  

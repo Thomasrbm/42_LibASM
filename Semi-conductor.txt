@@ -5,6 +5,9 @@ How computers works : https://www.youtube.com/watch?v=5f3NJnvnk7k
 Veritasium : https://youtu.be/IcrBqCFLHIY?si=tfkRknDsev7YafuK
 
 
+
+=================================  Propriétés physiques     =================================
+
 Moins conducteurs ques les métaux, ont très peu d'éléctrons libres 
 (ceux qui permettents de faire passer le courrant)
 
@@ -12,6 +15,9 @@ Ont peut néanmoins les dopper. enleurs ajoutants d'autres éléments qui
 ajoutes des éléctrons libres.
 
 On peut le faire positiviement ou negativement
+
+
+================================= Fonctionnement du transistor      =================================
 
 
 dans un bout de silicium on peut mettre une partie positive et deux negativement
@@ -29,11 +35,18 @@ peut chère, miniscule et ultra rapide et simple a actionner.
 
 
 
+=================================  Ogranisation des transistors  =================================
+
+
 Transistor viennent en paires.
 un P et un N ainsi selon celui reste ouvert on sait si c est 0 ou 1
 
 
 combiner des paires de transistor permet de faire les portes logiques
+
+
+
+=================================  Portes logiques     =================================
 
 
 HOW TRANSISTOR RUN CODE :
@@ -42,10 +55,23 @@ porte logiques : https://www.youtube.com/watch?v=HjneAhCy2N4
 les portes logiques sont faitavec la lyographie.
 On deisgne tout les emplacement de transistor pour les créer.
 
+on les hardwire, càd on agences les transistor physiquement à des emplacements précis pour former les portes logique 
+
+
 
 le multiplexeur du cpu ou gpu etc dirige les input au bon endroit au bon 
 moment.
 
+
+=================================    FGPA   =================================
+
+
 y 'a aussi des puces FGPA, la c est pas pensé à l 'avance
 c'est le pc qui va uses le transistor et créer les portes logiques 
 par abstraction selon ses besoins.
+
+
+=================================    VERIFIER L'ÉTAT D'UN TRANSISTOR   =================================
+
+
+Pour vérifier s'il est sur 1 ou 0, on 

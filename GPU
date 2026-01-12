@@ -1,0 +1,53 @@
+
+==================== DEF  + gérer par CPU ===================
+
+
+C'est là où il y'a le + de transistors (dizaines de milliard)
+
+
+
+
+
+le cpu lui envoit instruction pour calcul lourd graphique en général ou i.a montant
+
+
+
+
+CALCUL SIMPLE MAIS MASSIF, sur BCP DE DONNES
+
+
+
+Cpu c'est calcul compliqué, séquentiel (dépend de résultat précedent et ainsi de suite) mais moins de données
+
+
+====================== AUTONOME ====================
+
+
+il a sa propre VRAM
+
+
+
+
+Il a pleins de mini coeur en gros pour pleins de calcul simple en parrallele = les CUDA CORES
+
+
+
+son propre BIOS,  le VBIOS avec instruction dedans (dépasse pas tel température)
+
+
+
+VRM = gestion du voltage pour le gpu ( alim à x volt, le VRM ajuste)
+
+
+
+il a sa propre horloge et gestion interne une fois qu'on lui a attribué une tache il fonctionne de son côté 
+
+================= PCIE =============================
+
+Le Pcie c'est le BUS pour envoier du cpu au gpu
+
+
+x16  = 16 routes
+
+
+il doit pouvoir recevoir bcp par seconde
