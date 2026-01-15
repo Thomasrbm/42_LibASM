@@ -1,0 +1,119 @@
+https://www.youtube.com/watch?v=u_-oQx_4jvo&t=294s
+
+
+
+
+
+VOIR IMAGE RAM 
+
+
+
+============================ HEAP =========================
+
+
+Comme la stack elle est dans la RAM mais alligne de bas en haut ( inverse de la stack)
+
+C est pour les objet a malloc (dont on ne sait pas la taille a l avance)
+
+
+elle peut grow comme la stack
+
+
+
+
+
+===================== STACK DEFINITION ===================
+
+
+
+Cest une pile lifo
+
+
+C est une zone de la ram qui sert a 3 choses : 
+
+- stock des variables locale a une fonction
+- avoir le contexte actuel de l exec (ou on en est, a quel ligne on doit revenir a la fin de tel fonction etc)
+- les arguments aussi souvent
+
+
+
+Les variables qui seront init dans ton prog 
+int x = ... 
+
+seront misent dans la RAM via la stack
+
+
+======================= UPSIDE DOWN =================
+
+
+La stack commence a une adresse haute et diminue de 1 pour
+chaque case en plus ajouter 
+
+0xFF8 puis 0xFF7
+
+
+====================  Les sections ======================
+
+NE sont PAS dans la stack mais bie sur la RAM
+
+toutes les sections avec des points 
+
+.text  = code segment (langage machine)
+.data = var deja init avant le prog (globale etc) 
+.bss = global non init
+etc.
+
+
+sont misent dans la ram
+
+
+
+
+
+
+==================  LA FONCTION CALL ====================
+
+
+
+au moment ou tu use la fonction call pour chadonc nger de
+fonction
+
+
+elle push sur la stack l adresse de la ligne ou est ton code a call pour y retourner a la fin du ret
+
+
+
+======================= STACK FRAME ======================
+
+
+Chaque fonction du programme a sa propre stack
+frame
+
+(zone dans la ram)
+
+
+on a besoin de la base (la premiere case allouee)
+et du top (la derniere case)
+
+
+a chaue call ou ret on quitte une frame pour revenir a la 
+frame precedente jusqu a la fin du main
+
+
+
+=================  RSP & RBP ==============================
+
+
+
+
+En asm ce sont les ptrs qui keep track
+(delim pour pas segfault faut garder en memoir pour verif)
+
+la base = rbp 
+et du top = rsp
+
+
+================== allocation des variable local ==========
+
+
+Comme la stack est upside down, on 

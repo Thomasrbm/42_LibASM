@@ -1,0 +1,6 @@
+les delcation extern sont en dehors de la section 
+.text 
+
+
+car .text est uniqueent pour la section qui genere du
+CODE MACHINE (qui seront les instruction code dans la RAM)
