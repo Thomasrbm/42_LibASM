@@ -1,0 +1,21 @@
+
+
+https://wiki.osdev.org/Thread_Local_Storage 
+
+
+
+Utile car sinon le code stock dans rax est ecraser 
+quand on fait echo $?
+
+
+
+errnoe est dans local thread data 
+
+.tdata section
+
+c est dans la ram 
+
+
+
+chaque thread a son errno car sur un serveur
+le pthrejoin doit gerer (user id,  exit code)
