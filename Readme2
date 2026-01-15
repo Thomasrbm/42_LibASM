@@ -42,8 +42,123 @@ ainsi write peut écrire sur un fd (graver le SSD ou HDD ducoup)
 
 
 
+
+
+petites "cases"  zones de bits ou on stock les données qui seront calculé par le  ALU
+
+
+
+les gros regsitre font 64bit mais les sous divisions (a l origine registre faisit 8 puis on été aggrandit0)
+
+RAX : 64 bits
+
+EAX : 32 bits (les 32 bits de poids faible)
+AX : 16 bits
+AH / AL : 8 bits (H pour High, L pour Low)
+
+
+il y a une norme qui definit comment chaque registre doit être use : POURQUOI ?
+
+
+
+
+============================================================================================================
+
+ la norme ABI
+
+
+
+quand tu code en asm tu reçois des données déjà positionné par le programme qui appelle ta fonction.
+donc si la norme est pas respecté , la fonction va calculer les mauvais registres.
+
+
+
+chaque architecture de cpu a sa norme
+
+
+
+
+1/ registre volatils
+
+
+RAX, RCX, RDX, RSI, RDI, R8, R9, R10, R11.    =  vont etre écraser par la fonction qu'on call
+
+
+
+
+2/ Les registres stables 
+
+
+RBX, RBP, RSP, R12, R13, R14, R15.
+
+doivent être rendu tel quel  , soit pas touché soit remis comme avant avant le ret
+
+
+
+
+3/ registre d'arguments
+
+RDI	1er argument de la fonction.
+RSI	2ème argument.
+RDX	3ème argument (aussi utilisé pour les multiplications).
+RCX	4ème argument (utilisé aussi comme compteur de boucle).
+R8	5ème argument.
+R9	6ème argument.
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+===============================================================================
+
+4/ les pointeur de stack
+
+
+
+RSP  
+RBP
+
+
+ACCES RAM ?   Top down ? 
+
+
+===============================================================================
+
+
+
+
+
 ============================================================================================================
              meme les autres registres  ( à virgule etc)
+
+
+
+
+
+============================================================================================================
+
+            Comment le programme garde en mémoire la ligne ou il doit return apreès la fin de la ft ? 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -54,9 +169,17 @@ ainsi write peut écrire sur un fd (graver le SSD ou HDD ducoup)
 
 
 
-============================================================================================================
+oui.  pour mov ou autre aussi.
 
- la norme ABI
+
+
+entre [] = RAM. 
+
+C'est le fait d'accèdere à la RAM. 
+registre la taille est implicite pour le processeur il sait selon le registre.
+
+
+ici faut préciser la taille pour la RAM.
 
 
 ============================================================================================================
@@ -65,15 +188,62 @@ ainsi write peut écrire sur un fd (graver le SSD ou HDD ducoup)
 
 
 
+soit pour les sections
+
+
+
+soit les labels locaux (sous étapes used que dans ce fichier)
+
+
+(norme NASM  https://www.tortall.net/projects/yasm/manual/html/nasm-local-label.html)
+
 ============================================================================================================
  
  pk xor rax rax et pas mov rax 0 
 
+
+= optimisation courrante 
+
+
+
+mov rax, 0 : C'est une instruction gourmande. Elle doit stocker l'instruction elle-même + la valeur "0" sur 32 ou 64 bits. Cela prend environ 5 à 7 octets.
+
+xor rax, rax : C'est une opération entre deux registres. L'ordinateur n'a pas besoin de stocker de "0", il a juste besoin de dire "fais un XOR entre lui et lui-même". Cela prend seulement 2 ou 3 octets.
+
+
 ============================================================================================================
 
- pk on peut pas cmp our allcoate deux espace meme sur meme ligne passer par tiers
+ pk on peut pas cmp ou allcoate deux espace meme sur meme ligne passer par tiers
+
+mov [adresse1], [adresse2] (Erreur !) ou cmp [adresse1], [adresse2] (Erreur !).
+
+
+
+
+choix matériel de ne faire qu'un accès RAM à la fois, pour que ça reste simple (complique le code)
+
+le cpu serait plus gros faudrait DOUBLER les bus pour permettre de chooper plus de truc à la fois
+
+
++ les acces RAM peuvent long (100+ cycle clock (echelle cpu énorme)) alors on augment a terme sur gros programme, pas opti, doublement de complexité
+
+
+faudrait aussi gestion de conflit si dest et src ont meme adresse
+
 ============================================================================================================
 
  pk on dit mov si c est pour allocate
+
+
+ le vrai mot devrait être copy
+
+============================================================================================================
+
+                    diff NASM et AT&T
+
+
+nasm = intel  :  dest  src
+
+at&t inverse  + symboles chelous (fonctionne avec gss,  plus polyalent pour plusieus architecture)
 
 ============================================================================================================
