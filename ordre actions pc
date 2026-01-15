@@ -1,0 +1,36 @@
+Allumage → Voltage dans la carte mère → Le CPU se réveille.
+
+BIOS (sur la ROM) → Vérifie le matériel + Cherche le Bootloader.
+
+Bootloader → Charge le Noyau de l'OS dans la RAM.
+
+OS (RAM + CPU) → Prend le contrôle total et permet de lancer des Programmes.
+
+Programmes (RAM + CPU) → Demandent à faire une action (ex: afficher une image).
+
+Drivers (sur la RAM) → Traduisent l'ordre du programme en langage "matériel".
+
+    C'est ici que ça se passe : le driver dit au GPU quoi dessiner.
+
+GPU + VRAM → Fabriquent l'image réelle (le signal vidéo).
+
+Câbles (DisplayPort / HDMI) → Transportent ce signal fini.
+
+Écran / Enceintes → Reçoivent le signal et l'affichent (Pixels) ou le jouent (Son).
+
+
+
+=========================================================================================================
+
+
+Comment l'input binaire chosit précisement une des 256*256*256 (1m6) couleur du pixel ? 
+
+
+3 octet par pixel, selon allumage de chaque ça déclanche mécanisme qui laisse passer lumière ou pas
+
+
+mécanisme similaire pour le son.
+
+
+
+des milliosn de bit à la seconde pour gerer tout l'écran et tout le systeme son. (16 24 bits pour le son)
