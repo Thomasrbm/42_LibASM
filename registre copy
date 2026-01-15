@@ -1,0 +1,31 @@
+
+instruction pointer : https://geekyarthurs.medium.com/x86-32bit-function-calls-in-assembly-explained-c1a683e5ddc4
+rip = stcok la prochaine instruction a exec 
+
+
+rflags 
+
+
+rax = le return 
+rcx  =  counter register (incrementer boucle)
+
+
+
+arguments : 
+
+rdi (destination)
+rsi (source)
+rdx
+rcx
+r8
+r9
+
+
+pointeur de stack :
+
+rbp = base de frame
+rsp = top
+
+
+
+RBX	Base	Registre "callee-saved" (doit être restauré si modifié par une fonction).

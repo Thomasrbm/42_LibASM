@@ -1,0 +1,17 @@
+
+
+
+les XMM
+
+extended
+multi media register, a la base pour boost perf 
+video et son
+
+
+
+XMM : 128 bits 
+YMM : 256 bits 
+ZMM : 512 bits 
+
+
+traite par le fpu (pas alu)
