@@ -2,24 +2,27 @@ section .text
 	global _ft_strcmp
 
 _ft_strcmp:
-	xor rax, rax
+	xor rcx, rcx
 
-.while:
-	mov r10, [rsi + rax]
-	cmp r10, 0
-	
+.compare:
+	mov al, byte [rdi + rcx]
+	mov dl, byte [rsi + rcx]
+
+	cmp al, 0
 	je .end
-	cmp byte [rdi + rax], 0
-	je .end
-	cmp [rdi + rax], r10
+
+	cmp dl, 0
+	je .end 
+
+	cmp al, dl
 	jne .end
 
-	inc rax
-	jmp .while
+	inc rcx
+	jmp .compare
 
 
 .end:
-	mov r11, [rdi + rax]
-	mov rax, r11
-	sub rax, r10
+	movzx rax, al
+	movzx r11, dl
+	sub rax, r11
 	ret

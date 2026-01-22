@@ -1,0 +1,27 @@
+
+
+
+Le Callee est la fonction qui est appeller
+
+
+
+
+NON CALLER-SAVED = Volatils :  
+
+
+les registre qui peuvent etre modifier : 
+
+RAX, RCX, RDX, RSI, RDI, R8, R9, R10, R11
+
+
+
+
+
+
+CALLEE-SAVED : 
+
+
+
+RBX, RSP, RBP, R12, R13, R14, R15
+
+

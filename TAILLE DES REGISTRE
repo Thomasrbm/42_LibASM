@@ -1,0 +1,37 @@
+
+
+SI TU FAIT 
+
+
+mov r10, [rsi + rax]
+
+
+Mémoire (S1) :  [ H ] [ e ] [ l ] [ l ] [ o ] [ \0] [ ? ] [ ? ]
+Registre R10 :  [ H e l l o \0 ? ? ]  <-- Charge 8 octets d'un coup !
+
+
+tu deplace les 8 octets d un coup ! 
+
+
+------------
+
+ 
+faut donc mettre sur registre de taille 1 octet 
+
+
+Mémoire (S1) :  [ H ] [ e ] [ l ] [ l ] [ o ] [ \0]
+Registre AL  :  [ H ]                 <-- Charge seulement 1 octet
+
+
+
+
+
+-----
+
+comme on renvoit RAX 
+si on veut le return mais que la 
+
+
+valeur a return fait 1 octet.
+
+movzx mov la taille et met le reste a 0
