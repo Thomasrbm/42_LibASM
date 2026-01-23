@@ -6,16 +6,20 @@ section .text
 _ft_write:
 	mov rax, 1
 	syscall
+
 	cmp rax, 0
-	jl .error
+	jl .errno
+
 	ret
 
-.error:
+
+.errno:
 	neg rax
-	mov rdi, rax
-	push rdi
+	push rax
 	call __errno_location
-	pop rdi
-	mov [rax], rdi
+	pop r10
+	mov [rax], r10
 	mov rax, -1
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

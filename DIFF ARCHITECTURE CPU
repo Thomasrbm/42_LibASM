@@ -1,0 +1,147 @@
+
+_____________________________________________________________________________________________________________________________________________________________________
+
+														Les types d ARCHITECTURE 
+_____________________________________________________________________________________________________________________________________________________________________
+
+
+
+------------------------------------
+
+X86  Intel /AMD (30%)   = pc / serveur 
+
+a la base intel
+Retrocompatibilite (registre incrementer en taille)   => fait que pc restent en x86
++ windows a ete un peu marier a intel depuis 30 ans (recemment windows on arm)
+
+
+changer voudrait dire : vieux prog marcheront plus, tout recoder en arm (ou emuler mais plus lent), 
+
+amd a amener le 64bit repris par intel
+
+ils ont fait un deal pour avoir le droit l un l autre d use le 64 et le x86
+
+
+------------------------------------
+
+
+ARM  = designer de plan de CPU    = telphone, objet connecte, 
+
+Peu d instruction simple,
+moins de consomation et de chaleure
+
+
+ne fabrique pas de cpu , donne droit a : applem qualcom, nvidia, samsung
+
+
+
+les Macs  puce M1
+Les tablettes windows, samsungs etc
+
+
+Qualcomm Snapdragon X Elite/Plus
+Nvidia lance ARM aussi 2026
+
+
+Nintendo Switch
+
+
+
+------------------------------------
+
+
+RISC-V  = 1 a 3 % ultra new     =  Google pousse pour android soit plus dependant arm, nvdia gpu on puce riscv, NASA, Eu, qualcomm transitionne peu a peu
+
+
+creer a Berkley 2010, open source gratuit
+
+
+
+pas de droit a payer pour faire un CPU
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+_____________________________________________________________________________________________________________________________________________________________________
+
+																DIFF EN CODE
+_____________________________________________________________________________________________________________________________________________________________________
+
+explication I.A...
+
+
+--------------------------------------------------------
+
+			X86
+
+
+1. Exemple en x86-64 (Intel / AMD)
+
+Le x86 permet de faire des opérations directement entre un registre et la mémoire. C'est très compact.
+Extrait de code
+
+; On suppose que les valeurs sont en mémoire
+add eax, [valeur1]  ; Ajoute le contenu de 'valeur1' directement dans le registre EAX
+add eax, [valeur2]  ; Ajoute le contenu de 'valeur2' directement dans EAX
+mov [resultat], eax ; Stocke le résultat final en mémoire
+
+    Le style : "Fais-en un maximum en une seule ligne".
+
+    Particularité : Les instructions ont des tailles variables (entre 1 et 15 octets), ce qui rend le décodage complexe pour la puce.
+
+
+
+--------------------------------------------------------
+
+			ARM
+
+
+2. Exemple en ARM64 (Apple M1/M2/M3, Snapdragon)
+
+ARM est une architecture Load/Store. Tu ne peux pas faire d'addition directement sur la mémoire. Tu dois "charger" les données d'abord.
+ARM assembler
+
+; 1. On charge les valeurs de la RAM vers les registres
+ldr w0, [x1]        ; Charge 'valeur1' (à l'adresse x1) dans le registre w0
+ldr w1, [x2]        ; Charge 'valeur2' (à l'adresse x2) dans le registre w1
+
+; 2. On fait le calcul uniquement entre registres
+add w2, w0, w1      ; Additionne w0 et w1, range le résultat dans w2
+
+; 3. On renvoie le résultat en RAM
+str w2, [x3]        ; Stocke le contenu de w2 à l'adresse mémoire x3
+
+    Le style : "Une étape par ligne, de manière très décomposée".
+
+    Particularité : Chaque instruction fait exactement 4 octets. C'est super prévisible pour le processeur, ce qui lui permet de préparer les instructions suivantes très rapidement (c'est ce qui le rend efficace).
+
+
+--------------------------------------------------------
+ 
+				RISC V 
+
+Pour un développeur, RISC-V ressemble énormément à ARM, mais en encore plus épuré.
+
+    Modularité : Contrairement à x86 ou ARM où tu achètes le "pack complet", RISC-V est modulaire. Un développeur peut choisir d'utiliser uniquement la base (47 instructions de base seulement) et ajouter des extensions (ex: "M" pour la multiplication, "F" pour les nombres à virgule).
+
+    Registres : Comme ARM, il possède 32 registres généraux.
+
+    Simplicité : Voici la même addition que tout à l'heure, mais en RISC-V :
+
+Extrait de code
+
+lw   t0, 0(a0)    # Load Word : charge la valeur 1 dans le registre t0
+lw   t1, 0(a1)    # Load Word : charge la valeur 2 dans le registre t1
+add  t2, t0, t1   # Additionne t0 et t1, met le résultat dans t2
+sw   t2, 0(a2)    # Store Word : écrit le résultat en mémoire
+
+    C'est presque identique à l'ARM, mais les noms des instructions sont encore plus courts et simples.

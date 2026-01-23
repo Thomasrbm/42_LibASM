@@ -4,23 +4,32 @@
 Le Callee est la fonction qui est appeller
 
 
+------------------------------------------------------------------------------------
 
 
-NON CALLER-SAVED = Volatils :  
+CALLER-SAVED = Volatils :  
 
 
-les registre qui peuvent etre modifier : 
+peut use c est full brouillon
+
+les registre qui peuvent etre modifier par une fonction qu on appel : 
 
 RAX, RCX, RDX, RSI, RDI, R8, R9, R10, R11
+DONC seront surement ecraser par un malloc ou autre fonction extern (ne pas use dans le callee)
 
 
 
 
+MAIS COMME VOLATIL, si use malloc , chance que lui aussi l ecrase donc faut le push et le pop entre temp
 
 
-CALLEE-SAVED : 
+------------------------------------------------------------------------------------
 
+CALLEE-SAVED = stable  : 
 
+ceux qu on NE peut PAS use 
+
+peut use mais doit remettre a la valeur d origine toujours
 
 RBX, RSP, RBP, R12, R13, R14, R15
 

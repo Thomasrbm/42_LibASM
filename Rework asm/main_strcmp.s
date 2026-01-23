@@ -1,13 +1,14 @@
-extern _ft_strcmp
 extern printf
+extern _ft_strcmp
 
 section .data
-	format db "result = %d", 10, 0
 	string1 db "hellq", 0
 	string2 db "hello", 0
+	format db "diff = %d", 10, 0
 
 section .text
 	global main
+
 
 main:
 	mov rdi, string1
@@ -16,5 +17,5 @@ main:
 	mov rdi, format
 	mov rsi, rax
 	xor rax, rax
-	call printf	
-	ret  ; sans ret main crash
+	call printf
+	

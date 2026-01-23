@@ -1,0 +1,31 @@
+
+
+(Position Independent Executable)
+= pour la securite, pour pas que les hackers puissent analyser facilement les adresse ou prevoir a l avance ok je vais exploit ce bug a cette addresse fix a chaque fois.
+
+
+(rien a voire avec le mot RAM, lui veut dire acces a meme vitesse a n importe qu elle endroit de la memoire CAR pas comme vinyl ou casette ou tu dois tout jouer dans l ordre pour arriver a l endroit
+RAM = x colonnes et x lignes,  tu sais quel range et ligne allume,  tu allume les deux entierement et tu recup l instruction,  au lieu de faire chaque case une par une,  1 input pour 1 donne)
+
+
+
+
+
+
+À chaque lancement de ton programme, Linux choisit une adresse de départ au hasard dans la RAM. C'est ce qu'on appelle l'ASLR (Address Space Layout Randomization).
+
+
+MAIS __errno_location ou printf   sont elles aussi a des endroit random a chaque fois
+
+
+
+
+Le PLT (Procedure Linkage Table)
+permet de retrouver les addresses de chacun
+
+
+
+no-pie = met tout le monde a adresse fixe
+
+
+wrt ..plt  = use la PLT

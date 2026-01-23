@@ -1,20 +1,22 @@
 section .text
 	global _ft_strcmp
 
+
 _ft_strcmp:
+	xor rax, rax
 	xor rcx, rcx
 
 .compare:
-	mov al, byte [rdi + rcx]
-	mov dl, byte [rsi + rcx]
+	mov r10b, [rdi + rcx]
+	mov r11b, [rsi + rcx]
 
-	cmp al, 0
+	cmp r10b, 0
 	je .end
 
-	cmp dl, 0
-	je .end 
+	cmp r11b, 0
+	je .end
 
-	cmp al, dl
+	cmp r10b, r11b
 	jne .end
 
 	inc rcx
@@ -22,7 +24,9 @@ _ft_strcmp:
 
 
 .end:
-	movzx rax, al
-	movzx r11, dl
-	sub rax, r11
+	movzx rax, r10b
+	movzx rbx, r11b
+	sub rax, rbx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

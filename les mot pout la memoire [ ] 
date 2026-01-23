@@ -1,0 +1,48 @@
+
+
+
+CMP
+
+byte	Byte		1 octet		8 bits
+word	Word		2 octets	16 bits
+dword	Double Word	4 octets	32 bits
+qword	Quad Word	8 octets	64 bits
+
+
+
+SECTION .DATA / RODATA  = zone VALUE ASSIGNED
+
+
+
+db
+dw
+dd
+dq
+
+
+
+SECTION .BSS  = zone NULL
+
+
+resb
+resw
+resd
+resq	
+
+
+
+--------------
+
+
+gemini : 
+
+
+Quand tu écris db "hello", 0, tu dis en réalité à NASM : 
+"Réserve une suite d'octets. Le premier contient 'h', le deuxième 'e', ..., et le dernier contient 0.
+
+
+
+Avec db : [0x68] [0x65] [0x6C] [0x6C] [0x6F] [0x00] C'est parfait : chaque case mémoire contient exactement une lettre. Ton ft_strlen peut faire inc rax pour passer de lettre en lettre.
+
+Si tu utilisais dw (2 octets par caractère) : [0x68 0x00] [0x65 0x00] ... Ici, chaque lettre prendrait deux fois plus de place (avec un octet vide au milieu),
+et tes fonctions de manipulation de texte standard ne fonctionneraient plus.
