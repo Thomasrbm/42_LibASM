@@ -1,0 +1,13 @@
+
+
+rdi : filename
+
+rsi :  (O_WRONLY | O_CREAT | O_TRUNC)
+		1 | 64 | 512 (a add si on veut tous) = 577
+		0 pour readonly
+		1 write only
+		2 r et write
+		64 create
+		512 truncate
+
+rdx : perms : 0777q

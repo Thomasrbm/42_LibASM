@@ -1,19 +1,24 @@
 section .text
 	global _ft_strcpy
 
+
 _ft_strcpy:
 	xor rax, rax
+	xor rcx, rcx
+	mov rax, rdi
 
-.while:
-	cmp byte [rsi + rax], 0
+
+.copy:
+	mov r11b, [rsi + rcx]
+	mov [rax + rcx], r11b
+	cmp r11b, 0
 	je .end
 
-	mov r10, [rsi + rax]
-	mov [rdi + rax], r10
-	inc rax
-	jmp .while
+	inc rcx
+	jmp .copy
 
 
 .end:
-	mov mov [rdi + rax], 0
-	ret 
+	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

@@ -1,36 +1,27 @@
-extern printf
 extern _ft_read
+extern printf
 
+section .data
+	format db "byte read : %d", 10, 0
+	to_read db "to_read.txt", 0
 
-section .data: ; db = defin bytes = pour la memoire
-	format db "byte read : %d ", 10, 0
-	open_name db "to_read.txt", 0
-
-section .bss ; zone memoir non init 
-	buffer_read resb 1024 ; resb = reserved byte
+section .bss
+	buff resb 100
 
 section .text
 	global main
 
 main:
-	; push rbx  ; desaligner la stack provoque un segfault
 	mov rax, 2
-	mov rdi, open_name
-	mov rsi, 0 ; flag pour rd only
-	mov rdx, 0 ; permission a creation (pas donne)
+	mov rdi, to_read
+	mov rsi, 2
+	mov rdx, 0777q
 	syscall
-
-	mov rdi, rax ; stock le fd 
-	mov rsi, buffer_read 
-	mov rdx, 100
+	mov rdi, rax
+	mov rsi, buff
+	mov rdx, 10
 	call _ft_read
-
 	mov rdi, format
 	mov rsi, rax
-
-	xor rax, rax    ; SINON SEGFAULT 
-
+	xor rax, rax
 	call printf
-
-
-	ret

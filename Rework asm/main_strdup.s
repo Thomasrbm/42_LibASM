@@ -1,25 +1,18 @@
+extern _ft_strdup
 extern printf
-extern _ft_strlen
-
 
 section .data
-	string db "test", 0 
-	format db "string length = %d", 10, 0
+	string db "hello", 0
+	format db "dup = %s", 10, 0
 
 section .text
 	global main
 
-
-
 main:
 	mov rdi, string
-	call _ft_strlen
-	mov rsi, rax
+	call _ft_strdup
 	mov rdi, format
+	mov rsi, rax
 	xor rax, rax
 	call printf
 	ret
-
-
-
-

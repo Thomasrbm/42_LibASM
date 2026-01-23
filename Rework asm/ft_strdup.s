@@ -1,38 +1,43 @@
 extern malloc
+extern _ft_strcpy
 
 section .text
 	global _ft_strdup
 
+
+
 _ft_strdup:
-	xor rax, rax
 	xor rcx, rcx
-	mov r10, rdi
+
+
 
 .count:
-	mov al, byte [r10 + rcx]
-	cmp al, 0
+	cmp byte [rdi + rcx], 0
 	je .alloc
 
 	inc rcx
 	jmp .count
 
 
-
 .alloc:
 	inc rcx
+	push rdi
 	mov rdi, rcx
-	call malloc 
-	mov rcx, 0
+	call malloc
+
+	test rax, rax  ; maj juste les flag sans rien alouer,  fait & logique
+	jz .error ; si 0 malloc a echouer, rax null
 
 .fill:
-	mov r11b, byte [r10 + rcx]
-	mov byte [rax + rcx], r11b
-
-	cmp r11b, 0
-	je .end
-
-	inc rcx 
-	jmp .fill
+	pop rsi
+	mov rdi, rax
+	call _ft_strcpy
 
 .end:
 	ret
+
+.error:
+	xor rax, rax  ;si malloc echoue renvoit 0 + malloc gere deja errno
+	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

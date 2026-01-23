@@ -9,17 +9,17 @@ _ft_read:
 
 	cmp rax, 0
 	jl .error
+
 	ret
-	
 
 .error:
 	neg rax
-	mov rdi, rax
-	push rdi
-	call __errno_location
-	pop rdi
-	mov [rax], rdi
+	push rax
+	call __errno_location wrt ..plt ; wrt ..plt pour le PIE
+	pop r10
+	mov [rax], r10
 	mov rax, -1
 	ret
 
 
+section .note.GNU-stack noalloc noexec nowrite progbits

@@ -1,0 +1,108 @@
+
+GEF
+
+
+gdb enhanced features
+
+gef➤   en rouge en bah en faisant gdb
+
+
+
+
+-----------------
+
+
+cmd 
+
+
+break au nom de la ft
+run.
+
+
+n = ligne suivant (skip les ft)
+si = rentre dans les ft
+
+inverse = 
+
+rs
+rn  
+
+
+info registers
+
+watch [variable]
+display [variable]
+
+
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+														section 1  = etat de preparation.
+
+
+
+on voit tous les registres
+
+
+$rax   : 0x0000000000401130  →  <main+0000> movabs rdi, 0x404018                                                 ===================> 0e <main+0000> : L'emplacement (Le Label), 0000 = debut de la ft  +  les param (ici adresse de rdi pour le 1er arg de strlen)
+																																		premiere ligne du main, + params (comme rip, instruction pointer)
+
+
+
+$rbx   : 0x00007fffffffd8b8  →  0x00007fffffffdbf4  →  "/mnt/c/Users/User/Desktop/Code/test asm/a.out"			 ===================>   ici surement la libc qui a use pour lancer le main (devrait pas avoir l executable ici)
+
+$rcx   : 0x0000000000403e00  →  0x00000000004010f0  →  <__do_global_dtors_aux+0000> endbr64 					 ===================> __do_global_dtors_aux  = destructeur, fonction de gcc qui clean apres le main
+
+$rdx   : 0x00007fffffffd8c8  →  0x00007fffffffdc22  →  "USER=throbert"											 ===================> 3e ENV = pointe sur l env (de base meme si pas precisier dans le main)
+
+$rsp   : 0x00007fffffffd798  →  0x00007ffff7c2a1ca  →  <__libc_start_call_main+007a> mov edi, eax				 ===================> c est la fonction start de la libc qui a lancer le main.  elle est push sur la stack au tout debut. quand main fait return, cette ft
+																																close la fonction.
+
+$rbp   : 0x00007fffffffd830  →  0x00007fffffffd890  →  0x0000000000000000										 ===================> adresse du bas de la frame actuel
+
+$rsi   : 0x00007fffffffd8b8  →  0x00007fffffffdbf4  →  "/mnt/c/Users/User/Desktop/Code/test asm/a.out"			 ===================>   2e ARGV =  ici chemin vers exec mais aussi autres param si y a plus
+
+$rdi   : 0x1               																						 ===================>   1e ARGC = nombre d argument, ici   1 car juste ./a.out
+
+$rip   : 0x0000000000401130  →  <main+0000> movabs rdi, 0x404018												 ===================> 1er ligne du main
+
+$r8    : 0x0               																						 ===================>
+
+$r9    : 0x00007ffff7fca380  →  <_dl_fini+0000> endbr64 													  	 ===================> le "exit"
+
+$r10   : 0x00007fffffffd4b0  →  0x0000000000800000																 ===================>
+
+$r11   : 0x203             																					 	 ===================>
+
+$r12   : 0x1               																						 ===================>
+
+$r13   : 0x0               																						 ===================>
+
+$r14   : 0x0000000000403e00  →  0x00000000004010f0  →  <__do_global_dtors_aux+0000> endbr64 					 ===================> 2e ptr vers destru
+
+$r15   : 0x00007ffff7ffd000  →  0x00007ffff7ffe2e0  →  0x0000000000000000										 ===================>  GOT - Global Offset Table, lien entre code et fonctions libc
+
+
+$eflags: [ZERO carry PARITY adjust sign trap INTERRUPT direction overflow resume virtualx86 identification]      ===================> MAJ veut dire 1, min 0, 
+
+																																	PF : parity,  si le nombre de bit a 1 dans le dernier octet calcul est paire (vieux, desuet)		
+																																	 
+																																	 
+																																	ZF : zero, si un resultat a ete egal a 0 dernierement			
+
+
+
+ 																																	IF : interruption, dit au cpu, tu peux use clavier souris
+																																	j interromperais le prog pour process leurs input, (en min, freeze)
+
+
+
+$cs: 0x33 $ss: 0x2b $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00 													 ===================>   (CF) : Pas de retenue. (Ex: tu n'as pas fait 255+1 sur un octet).
+																																		sign (SF) : Le dernier résultat n'était pas négatif.
+																																		overflow (OF) : Il n'y a pas eu d'erreur de signe lors d'un calcul (ton calcul n'a pas "débordé").
+																																		direction (DF) : Il est à 0, donc le processeur traite les chaînes de caractères de gauche à droite (ordre normal).
+																																		trap (TF) : C'est le mode "pas à pas". Même si tu es dans GDB, ce bit est souvent à 0 car c'est le debugger qui gère l'arrêt, pas le processeur tout seul.
+
+
+
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________

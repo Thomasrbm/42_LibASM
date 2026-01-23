@@ -1,22 +1,21 @@
 extern _ft_write
 
-section .data    ; RAJOUTER  : apres la section :change le nom de la section = segfault
-	msg db "Hello", 10, 0
-	to_open db "to_read.txt", 0
+section .data
+	to_write db "to_read.txt", 0
+	text db "lol", 10, 0
 
 section .text
 	global main
 
 main:
 	mov rax, 2
-	mov rdi, to_open
-	mov rsi, 1
-	mov rdx, 0
+	mov rdi, to_write
+	mov rsi, 1025
+	mov rdx, 0777q
 	syscall
-
 	mov rdi, rax
-	mov rsi, msg
-	mov rdx, 6
+	mov rsi, text
+	mov rdx, 4
 	call _ft_write
-
 	ret
+
