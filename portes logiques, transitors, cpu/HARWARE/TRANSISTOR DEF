@@ -1,0 +1,34 @@
+
+C est 3 branches + la plaque noire (zone chimique)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OLD
+Transistor BIPOLAIR (3 branche)   BJT =  base collector et emitter 
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+https://www.youtube.com/shorts/eS5PmxJ-lS0  
+
+
+ACTUEL =  MOSFET => Gate, Drain, source
+
+
+
+
+La gate = branche ou le cpu envoit le signal
+
+
+Source courrant Arrivée
+Drain courrant sort 
+
+
+
+courrant dans Gate laisse ou non passer courrant de source a drain

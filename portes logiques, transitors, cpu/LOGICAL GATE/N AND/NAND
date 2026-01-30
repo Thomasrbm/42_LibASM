@@ -1,0 +1,35 @@
+
+
+
+DEUX ARRIVEE DE COURRANT DISTINCTE
+
+
+[ Arrivée de courant + ]
+        |                 |
+        +--------+--------+
+        |                 |
+      [ P1]                 [ P2]  <-- Ces transistor laissent passer par defaut
+        |                 |          
+        +--------+--------+
+                 |
+                 |------> [ SORTIE ] (L'ampoule)
+                 |
+               [ N1]            <-- en suite pour que les DEUX doivent etre vrai en meme temps
+                 |                   
+               [ N2]
+                 |
+            [ ÉGOUTS ] (0)
+
+
+
+
+
+si 1  P est allume  alors ca passer
+
+
+
+Si 1 P 1 N ca va 
+
+
+
+si les 2 N alors ca sort.

@@ -1,0 +1,17 @@
+
+
+Ca doit surement faire :
+
+
+prend input clavier -> atoi dessus ou similaire
+
+envoit cpu 
+
+
+cpu use porte logique et registre -> resultat rax
+
+
+renvoit a appli -> itoa
+
+
+affiche

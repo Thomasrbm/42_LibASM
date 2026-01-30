@@ -1,0 +1,42 @@
+							 Passage de prise 260 V a  5v par transistor
+
+
+
+L alimentation fait passer le courrant alternatif a courrant continue
+
+
+elle recree une tension differente par cable
+
+12v jaune
+5v rouge
+3.3 v orange
+
+
+
+
+Watts =  volts * intensite (amphere)
+
+pour moduler l ampherage, il faut laisser passer plus ou moins longtemps le courrant (celon besoin cpu)
+donc pour lisser la "demande" faut plus gros reservoir (condensateurs)
+
+
+
+
+
+
+
+pc a 12 volt max mais beaucoup plus de watt selon la totalite de calucul qu il doit pouvoir faire
+
+Le Voltage (12V), c'est la pression dans les tuyaux. Elle reste fixe.
+L'Ampérage (A), c'est le débit (la quantité d'eau qui coule).
+Le Wattage (W), c'est le travail total effectué.
+
+
+Alim fournit la capacite,  GPU/CPU calcul,  RAM (memoire travail en cours)
+
+
+
+
+Alim envoit courrant en permanence a tous les transistor (mais pas de debit pour les N), que pass dans les P
+par defaut 
+

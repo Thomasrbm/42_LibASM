@@ -1,0 +1,37 @@
+
+
+_____________________________________________________________
+|          UNITÉ DE CONTRÔLE (Le Cerveau)                   |
+|  (Portes logiques organisées en décodeurs d'instructions) |
+|____________________________|______________________________|
+                             |
+         ____________________V____________________
+        |                                         |
+  ______|__________     __________________________|__________
+ |   REGISTRE A    |   |        REGISTRE B         |         |
+ | (Portes "Latch" |   |     (Portes "Latch"       |         |
+ |  pour stockage) |   |      pour stockage)       |         |
+ |_______|_________|   |____________|______________|         |
+         |                          |                        |
+         |    ______________________V____________________    |
+         |   |                                           |   |
+         |   |      UNITÉ ARITHMÉTIQUE ET LOGIQUE (ALU)  |   |
+         |   |                                           |   |
+         |---|   (Concentration massive de portes AND,   |---|
+             |    OR, XOR pour les calculs)              |
+             |___________________________________________|
+                             |
+                             V
+                (Résultat renvoyé au Registre)
+
+
+
+Donc certaines portes sont la pour garder en meme (fliflop)
+
+d autre pour calcluler
+
+d autre pour decoder
+
+
+
+ensemble elle sont orchestre

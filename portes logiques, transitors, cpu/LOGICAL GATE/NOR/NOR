@@ -1,0 +1,50 @@
+
+
+
+
+De base une NAND laisse passer le courrant.
+
+que tu mette a 1 l une ou l autre entree ca  (donc bloque passage puisque Transistor P a entree)  ca reste 1 a la sortie
+
+
+donc a 0  sortie =  1 
+
+
+00 = 1 
+01  = 1
+10 = 1
+
+11 = 0 
+
+
+
+
+
+
+
+OR  c est :  suffit d un 1 pour que marche
+
+00 = 0
+
+01 = 1
+10 = 1
+11 = 1
+
+
+
+
+La NOR = resultat INVERSE
+
+
+
+
+Inverser les deux input du NAND  donne en entree 2 1
+
+
+donc flux d alim par defaut = 0 mais turn into 1
+11 = 0
+
+
+en sortie inverser = 
+
+11 = 1
