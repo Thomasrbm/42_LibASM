@@ -1,0 +1,36 @@
+
+
+
+
+Le rip est le registre qui suit la suite dinstruction dans lordre 
+
+
+situe dans le segment text de la RAM
+
+
+
+il fetch (il a l adresse de l instruction dans la RAM)
+
+il Decode : chaque instruction machine a un Opcode (operande code, qui l identifie)  => donne par le compilateur
+
+
+L'Opcode : 00000001 (C'est un ADD).
+
+ 11 011 000 (Les bits disent : "Prends le registre 011 (EBX) et ajoute-le au registre 000 (EAX)").
+
+
+
+
+
+
+La fonction call push l adresse de la ligne de retour (dans la ram)
+le RIP pourra la recup pour revenir en arriere dans le main ou atre 
+
+
+
+
+---------------------------------------------------
+
+
+
+PAS DE LIEN AVEC LES STACK FRAME

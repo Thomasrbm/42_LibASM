@@ -1,0 +1,154 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+						1 and 0  =  niveau grille (cpu), pas niveau alim
+
+
+
+
+par defaut courrant passe donc 
+
+sur 0, courrant passe pour P
+sur 1 (grille active) Courrant passe plus pour P   =  resultat 1
+
+
+Sur 0 courrant passe par Pour N
+Sur 1 courrant passe mais donc ca donne   = resultat  0  
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+							Memory Mapping
+
+
+
+Chaque hardware a une "adresse"
+
+
+gpu, ram etc
+
+
+Le CODE dit tel resultat doit etre calculer par Le gpu
+
+
+
+CPU fait recoit ordre d envoyer cette demande de bits (courrant) a telle adresse(gpu), 
+GPU a odre de caluler et renvoyer a l ecran etc.
+
+
+
+
+
+
+Hardcode physique :  on a dit a l avance telle combinaison de bit = tel son, telle couleur. etc
+le pc fait que les calculer pour les afficher instant
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+						CPU gere les grilles de transistor 
+
+
+
+GERE GRILLE Transistor
+
+De base grille a 0.  elec cree champ magnetique 
+
+
+
+
+De base P =  laisse passer
+N = non
+
+
+Grille inverse et donc laisse passer ou non
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+														Fonctionnement CPU + ALIM
+
+
+
+Alim envoit courrant a toute la ligne
+Si P ça passe sinon N ça bloque de base (terre)
+
+
+
+Cpu au dessus vient inverser les TRANSISTOR avec aimant/magnet
+
+
+N vient flush, ça passe
+Et p est fermé 
+
+
+
+Donc ligne peut être bloqué au premier N ouvert .
+
+
+
+
+Clock dit le rythme.
+Pas tous alim en permanence mais très rapidement si 
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+									Fonctionnement par paire des transistor 
+
+
+
+
+2 PASSAGE : passage ALIM (par cote, la ou le courrant passe)
+
+		   Passage grille,  CPU (par dessus)
+
+
+
+Transistor marche en DUO (CMOS, Complementary Metal-Oxide-Semiconductor)
+Forcement une P et une N (pas de duo obli),  c est la complementarite pas le nombre
+
+
+
+Porte P en haut  (si courrant, charge -, les electrons doivent passer, trops d electrons presant deja donc prennet leur place = conserve la tension) = pousse
+
+Porte N en base (electrons libres)  = attire vers Terre 
+
+
+La "Terre" ou GND (ground)  = couche de cuivre sur carte mere
+							ou ils vont se disperser (electrons)  vers le pole plus puis vers l alim  pole - (rebooste en tension) puis vers autre bit etc
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+																				PORTE LOGIQUE
+
+
+						Porte logique : on peut donc representer des paquet d ocetets, faire des calcul entre eux
+
+
+						en envoyer le result vers les outputs qui interprete en hardcode.
+
+
+
+C est autre chose que les CMOS
+
+
+On prend les transistor pour les agencer autrement que paire de bases.
+
+
+

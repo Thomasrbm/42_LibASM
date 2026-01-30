@@ -1,0 +1,29 @@
+
+
+
+Deux input 
+
+
+A = valeur
+B = inverser 
+
+
+si inversor a 1 = inverse le bit du dessus
+
+
+Use un XOR
+
+
+valeur 		0  =  0
+no invert	0
+
+valeur 		1  =  1
+no invert	0
+
+
+
+valeur 		0  =   1 
+invert	    1
+
+valeur 		1  =  1
+invert	    1  

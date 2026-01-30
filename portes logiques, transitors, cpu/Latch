@@ -1,0 +1,80 @@
+
+
+
+
+Latch = verrou avec la sortie or 
+
+
+
+on decale la reponse pour "filtrer le bruit"
+
+l horloge met un tempo pour pas voir du signal en continue.
+
+
+GEMINI : 
+
+
+1. Filtrer le "bruit" (Éviter les erreurs)
+
+Quand un processeur calcule (par exemple 2+2), les signaux électriques à l'intérieur ne sont pas instantanés. Ils sautent un peu partout avant de se stabiliser sur le bon résultat.
+
+    Sans décalage : La mémoire enregistrerait toutes les étapes intermédiaires fausses.
+
+    Avec le décalage (Horloge) : On attend que le signal soit stable. C'est comme dire : "Ne note rien pour l'instant, attends que j'aie fini de compter, et maintenant... enregistre !".
+
+
+
+2. Éviter les boucles infinies (Le Feedback)
+
+la sortie revient vers l'entrée.
+
+    Si la sauvegarde était instantanée et permanente, la sortie changerait l'entrée, qui changerait la sortie, qui changerait l'entrée... le circuit se mettrait à osciller (clignoter très vite) et finirait par chauffer ou planter.
+
+    En décalant la sauvegarde, on coupe cette boucle. On ne laisse passer l'information que pendant un court instant, ce qui fige la valeur.
+
+
+
+3. La synchronisation (Le chef d'orchestre)
+
+Un PC contient des milliards de composants comme le tien. S'ils changeaient tous d'état à des moments différents, les données arriveraient en désordre.
+
+    L'horloge (le signal qui contrôle ton décalage) sert de chef d'orchestre.
+
+    Elle donne le "Top" à tout le monde en même temps. Cela permet de s'assurer que la donnée sort de l'étape A exactement au moment où l'étape B est prête à la recevoir.
+
+
+
+
+
+
+
+	-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+								Pk les portes logiques ne decalent pas mais la save si ???
+
+
+
+
+
+
+1. Les portes logiques sont "passives" (Logique combinatoire)
+
+Une porte AND ou OR seule n'a pas de mémoire. Elle ne fait que réagir à ce qui arrive :
+
+    Si l'entrée change, la sortie change presque instantanément (après un minuscule délai physique).
+
+    Il n'y a pas besoin de décaler, car la porte ne "décide" rien : elle laisse juste passer le courant selon une règle. Si l'entrée redevient 0, la sortie redevient 0 aussitôt. On appelle ça de la logique "au fil de l'eau".
+
+
+
+
+2. La mémoire est "active" (Logique séquentielle)
+
+Dès que tu veux sauvegarder une valeur (comme dans ton circuit), tu crées une boucle où la sortie revient vers l'entrée. C'est là que le danger apparaît :
+
+    Le problème de la course (Race Condition) : Sans décalage, si la sortie change et revient à l'entrée trop vite, elle peut modifier la sortie à nouveau, créant une instabilité.
+
+    La différence entre "Calculer" et "Décider" : Les portes logiques servent à calculer (préparer le résultat). Le décalage (l'horloge) sert à décider quand le calcul est fini et qu'on peut l'enregistrer.
+
+

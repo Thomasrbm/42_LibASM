@@ -1,0 +1,62 @@
+
+
+Par defaut courrant passe (0 dans valve P)
+
+
+donc 0 = 1
+
+
+envoyer courrant dans gate de P va fermer P, courrant passera vers transistor N vers ground 
+
+1 renvoit 0
+
+
+-----------------------------------------------------------
+
+
+[ Arrivée de courant + (Vdd) ]
+                 |
+                 |
+          +------v------+
+          | transi  P   |  
+          +------v------+      
+                 |
+    (Entrée) ----+------> [ FIL DE SORTIE ]
+                 |
+          +------v------+
+          |  transi N    |  
+          +------v------+      
+                 |
+                 v
+            [ GROUND ]
+
+
+-----------------------------------------------------------
+
+
+
+RELIER LES DEUX FILE DU NAND EN 1 = NOT
+
+
+[ Arrivée de courant + ]
+                 |
+        +--------+--------+
+        |                 |
+      [ P1]                 [ P2]  <-- Ces transistor laissent passer par defaut
+        |                 |          
+        +--------+--------+
+                 |
+                 |------> [ SORTIE ] (L'ampoule)
+                 |
+               [ N1]            <-- en suite pour que les DEUX doivent etre vrai en meme temps
+                 |                   
+               [ N2]
+                 |
+            [ ÉGOUTS ] (0)
+
+
+
+
+
+
+CAR ON GARDE QUE le soit double active soit double desactivee

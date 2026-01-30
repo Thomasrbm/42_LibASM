@@ -1,3 +1,8 @@
 
 
 check if null dans strlen etc non ???
+
+
+
+compiller des mains sans gcc si pas de c dans le main  avec ldt je crois
+pour faire avec _start et pas main.
