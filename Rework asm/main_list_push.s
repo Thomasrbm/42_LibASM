@@ -1,45 +1,41 @@
-extern _ft_list_push_front, printf
-global main
+extern printf
+extern push_front
+extern lst_new
+extern malloc
+
+section .bss
+    list_head resq 1    ; *begin
 
 section .data
-	begin:  dq 0
-	str1:   db "Premier insere (donc dernier)", 0
-	str2:   db "Dernier insere (donc premier)", 0
-	fmt:    db "Data: %s", 10, 0
+    data1 db "data1", 0
+    data2 db "data2", 0
+    format db "list : %s", 10, 0
 
 section .text
+    global main
+
 main:
-	push rbp
-	mov rbp, rsp
-	push rbx
-	sub rsp, 8
+    mov rdi, data1
+    call lst_new
+    mov [list_head], rax
 
-	; Insertion 1
-	mov rdi, begin
-	lea rsi, [str1]
-	call _ft_list_push_front
+    mov rdi, list_head
+    mov rsi, data2
+    call push_front
 
-	; Insertion 2
-	mov rdi, begin
-	lea rsi, [str2]
-	call _ft_list_push_front
+    mov rdi, format
+    mov rbx, [list_head]   
+    mov rsi, [rbx]
+    xor rax, rax
+    call printf
 
-	; Boucle d'affichage
-	mov rbx, [begin]
-.loop:
-	test rbx, rbx
-	jz .done
-	
-	lea rdi, [fmt]
-	mov rsi, [rbx]
-	xor rax, rax
-	call printf
-	
-	mov rbx, [rbx + 8] 
-	jmp .loop
+    mov rdi, format
+    mov rbx, [rbx + 8]
+    mov rsi, [rbx]
+    xor rax, rax
+    call printf
+    jmp .done
+
 
 .done:
-	add rsp, 8
-	pop rbx
-	leave
-	ret
+    ret

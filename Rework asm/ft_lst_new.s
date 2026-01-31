@@ -2,25 +2,20 @@ extern malloc
 
 
 section .text
-	global _ft_lst_new
+	global lst_new
 
-
-
-; rdi va contenir le segment data
-
-_ft_lst_new:
+lst_new:
 	push rdi
 	mov rdi, 16
 	call malloc wrt ..plt
 	pop rdi
 
-	test rax, rax     ; Vérifie si malloc a échoué (NULL)
-    jz .error
+	test rax, rax
+	jz .error
 
-	mov [rax], rdi
-	mov qword [rax + 8], 0   ; next a null
+	mov [rax], rdi				 ; pk pas de mot ???, car deux de taille 64
+	mov qword [rax + 8], 0       ; PK QWORD ????  car 0 n a pas de taill, faut lui dire
 	ret
 
 .error:
-	xor rax, rax
 	ret
