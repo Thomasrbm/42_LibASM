@@ -2,9 +2,9 @@ extern malloc
 
 
 section .text
-	global lst_new
+	global _ft_lst_new
 
-lst_new:
+_ft_lst_new:
 	push rdi
 	mov rdi, 16
 	call malloc wrt ..plt
@@ -19,3 +19,6 @@ lst_new:
 
 .error:
 	ret
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits

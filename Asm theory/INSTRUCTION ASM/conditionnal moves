@@ -1,0 +1,33 @@
+
+
+
+Conditionnal moves 
+
+
+
+
+CMOVE (Conditional Move if Equal)
+CMOVC (Conditional Move if Carry)
+CMOVS (Conditional Move if Sign)
+
+
+SETE	Set if Equal	ZF=1
+SETNE	Set if Not Equal	ZF=0
+SETA	Set if Above (non-signé)	CF=0 et ZF=0
+SETB	Set if Below (non-signé)	CF=1
+SETG	Set if Greater (signé)	ZF=0 et SF=OF
+SETL	Set if Less (signé)	SF=OF
+
+
+
+
+LOOPE
+
+FCMOVCC 
+
+
+CMPXCHG  
+
+
+
+etc.  pleins d instruction conditionnels 

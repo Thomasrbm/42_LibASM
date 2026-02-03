@@ -1,0 +1,51 @@
+
+
+
+DO WHILE
+
+
+jmp en fin de boucle.
+
+
+
+loop_start:
+    add     rax, 1             ; i++ (Dest: rax, Src: 1)
+    cmp     rax, rsi           ; Comparer i et n
+    jl      loop_start         ; Si rax < rsi, REMONTE
+
+
+
+
+
+WHILE
+
+
+jmp a la verif pour le 1er tour. 
+
+jmp     L_test             ; Saut initial vers le test
+L_loop:
+    ; ... corps de la boucle ...
+    add     rax, 1             ; i++
+L_test:
+    cmp     rax, rsi           ; i < n ?
+    jl      L_loop             ; Si vrai, REMONTE au corps
+
+
+
+
+
+FOR 
+
+while avec init en plus direct colle.
+
+
+
+
+	mov     rax, 0             ; i = 0 (Initialisation)
+    jmp     L_test             ; On saute au test
+L_loop:
+    ; ... corps de la boucle ...
+    add     rax, 1             ; i++ (Mise à jour)
+L_test:
+    cmp     rax, rdx           ; i < len ?
+    jl      L_loop             ; Si vrai, REMONTE

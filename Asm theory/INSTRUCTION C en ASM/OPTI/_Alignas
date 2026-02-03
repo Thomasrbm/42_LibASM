@@ -1,0 +1,30 @@
+On a couvert les plus gros (le "Big 3" : switch, inline, restrict), mais il existe d'autres outils que les ingénieurs utilisent pour gratter les derniers 5% de performance. Certains sont des mots-clés, d'autres sont des Directives ou des Built-ins.
+
+Voici les plus importants qui ne sont pas marginaux si tu fais du système :
+1. __builtin_expect (La prédiction de branche manuelle)
+
+C'est un outil ultra-puissant utilisé massivement dans le noyau Linux. Tu dis au processeur quelle branche du if a le plus de chances d'arriver.
+
+    En C :
+    C
+
+    #define likely(x)   __builtin_expect(!!(x), 1)
+    #define unlikely(x) __builtin_expect(!!(x), 0)
+
+    if (unlikely(error_condition)) {
+        // Code de gestion d'erreur
+    }
+
+    L'optimisation ASM : Le compilateur va placer le code du if (le cas rare) loin dans le binaire et garder le code principal en ligne droite.
+
+    Le gain : Le processeur ne charge pas les instructions de l'erreur dans son cache pour rien. Le flux reste linéaire pour le cas normal.
+
+2. L'alignement de données : _Alignas (C11)
+
+Le CPU n'aime pas lire des données qui sont "à cheval" entre deux lignes de cache.
+
+    Le concept : Un int de 4 octets est plus rapide à lire s'il commence à une adresse multiple de 4.
+
+    En C : _Alignas(64) char buffer[1024]; force ton tableau à s'aligner sur une ligne de cache (typiquement 64 octets).
+
+    En ASM : Cela permet d'utiliser des instructions de lecture spécialisées (comme MOVAPS en SIMD) qui crashent si la donnée n'est pas alignée mais qui sont foudroyantes si elle l'est.

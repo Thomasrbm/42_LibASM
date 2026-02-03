@@ -1,0 +1,37 @@
+
+
+
+if else =  "lent" (O(n))
+
+
+
+switch = "mieux" (O(1))
+
+
+
+
+pour une cascade de 10 if else  si c est le 10e tu dois passer par les 9 autres.
+
+
+switch marche comme : 
+
+1/ VERIFIE SI pas en dessous/dessus des cases (SINON default)
+
+cmp rax, 1
+jb  L_default       
+cmp rax, 10
+ja  L_default
+
+
+
+2/ CREE une section de donnees. 
+
+sub rax, 1						// pour index part de 0
+jmp [Table + rax*8] 			// 1 ligne 
+
+Table:
+    dq L_case1
+    dq L_case2
+    dq L_case3
+	... 
+	dq L_case10

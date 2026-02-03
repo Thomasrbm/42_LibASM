@@ -1,0 +1,58 @@
+
+
+------------------------
+
+RBP
+
+assigner au debut.
+Ne bouge plus pdt tout la fonction.
+
+C est le delimiter de la stack frame
+cest le plus en "haut" de la stack frameil
+
+
+1/ use pour trouver des valeur : 
+
+mov eax, -0x40(%rbp)    ;  stock 40 en dessous de rbp
+
+2/ remonter rsp (close la stack)
+
+3/ stack canary (safety)
+
+ mov    %fs:0x28,%rax .  %rax,-0x8(%rbp)  place un value random ici au debut, si elle change y a hack.  
+
+------------------------
+
+RSP
+
+
+aligner en haut de la RAM  = exemple : 100.  pointe en haut. rien stock en STACK
+
+Bouge a chaque push et POP et call de function et assignation etc
+
+
+
+
+------------------------
+PUSH = NE VIDE PAS, fait une copie dans la stack
+
+
+2 ETAPES
+
+1/ tu sub a rsp pour faire la place
+2/ tu copie la valeur a l adresse liberer dans la stack
+
+
+sub 0x40, RSP
+retirer 64 a RSP
+
+
+donc rsp = 36.
+
+
+y a 64 de taille a allouer de libre 
+
+
+
+------------------------
+POP
