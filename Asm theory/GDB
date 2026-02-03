@@ -1,4 +1,72 @@
 
+
+
+1/ GDB USE AT&T  donc vaut inverser l ordre des register pour comprendre   (ou use enhanced gdb)
+ 
+
+2 / Disassemble "function"  => VOIT TOUT STEP BY STEP  les registres 
+
+
+
+Intel securise les programme avec : endbr64 .  force tout les prog a passer par cette techno en premier, si pas presnet marche pas.
+
+
+il use aussi le  "Stack Canary" (Le gardien)  mov    %fs:0x28,%rax . place un value random ici au debut, si elle change y a hack.
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+exemple : 
+
+
+
+   0x0000000000401176 <+0>:     endbr64
+   0x000000000040117a <+4>:     push   %rbp
+   0x000000000040117b <+5>:     mov    %rsp,%rbp
+   0x000000000040117e <+8>:     sub    $0x40,%rsp
+   0x0000000000401182 <+12>:    mov    %fs:0x28,%rax
+   0x000000000040118b <+21>:    mov    %rax,-0x8(%rbp)
+   0x000000000040118f <+25>:    xor    %eax,%eax
+   0x0000000000401191 <+27>:    mov    $0x1a4,%edx
+   0x0000000000401196 <+32>:    mov    $0x442,%esi
+   0x000000000040119b <+37>:    lea    0xe66(%rip),%rax        # 0x402008
+   0x00000000004011a2 <+44>:    mov    %rax,%rdi
+   0x00000000004011a5 <+47>:    mov    $0x0,%eax
+   0x00000000004011aa <+52>:    call   0x401080 <open@plt>
+
+
+
+
+   endbr64 = safety
+
+    0x000000000040117a <+4>:     push   %rbp                    => stock le haut de la frame actuel
+   0x000000000040117b <+5>:     mov    %rsp,%rbp			=> met rsp sur ce haut
+   0x000000000040117e <+8>:     sub    $0x40,%rsp    =>          ESPACE POUR STACK CANARY
+
+   Stack canary
+   0x0000000000401182 <+12>:    mov    %fs:0x28,%rax
+   0x000000000040118b <+21>:    mov    %rax,-0x8(%rbp)  
+
+
+   0x0000000000401191 <+27>:    mov    $0x1a4,%edx
+   0x0000000000401196 <+32>:    mov    $0x442,%esi     =>          met les valeur flag et perm pour le open
+
+   0x000000000040119b <+37>:    lea    0xe66(%rip),%rax        # 0x402008             => va chercher le nom du fichier a open dans rodata (stock qq bit apres la ou est le curseur eip)
+   0x00000000004011a2 <+44>:    mov    %rax,%rdi
+
+
+   PLT signifie Procedure Linkage Table  = apres le open. pour retrouver les function libc 
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
 GEF
 
 

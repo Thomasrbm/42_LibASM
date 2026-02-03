@@ -1,0 +1,20 @@
+while (i < n) {
+    if (i == 5) break;
+    i++;
+}
+// Le break arrive ici
+
+
+
+C EST un :
+
+cmp 
+je .break
+
+.break:
+	jmp .done
+
+
+	OU
+
+.done direct

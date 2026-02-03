@@ -1,0 +1,9 @@
+
+
+
+si ta variable peut etre modifier par plusieur chose differentes en meme temps
+
+il faut pas que le cpu la mette de cote, il faut qu il la check en permanence
+
+
+donc ca rajoute une instruction pour la check (un cmp en plus dans la boucle infini)

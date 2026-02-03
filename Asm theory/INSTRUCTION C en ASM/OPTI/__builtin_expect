@@ -1,0 +1,19 @@
+
+
+
+__builtin_expect (La prédiction de branche manuelle)
+
+C'est un outil ultra-puissant utilisé massivement dans le noyau Linux. Tu dis au processeur quelle branche du if a le plus de chances d'arriver.
+
+    En C :
+    C
+
+    #define likely(x)   __builtin_expect(!!(x), 1)
+    #define unlikely(x) __builtin_expect(!!(x), 0)
+
+    if (unlikely(error_condition)) {
+        // Code de gestion d'erreur
+    }
+
+
+e compilateur va placer le code du if (le cas rare) loin dans le binaire et garder le code principal en ligne droite.

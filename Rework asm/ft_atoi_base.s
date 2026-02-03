@@ -1,9 +1,10 @@
 extern _ft_strlen
 
-
-
 section .text
     global _ft_atoi_base
+
+
+
 
 
 _ft_atoi_base:
@@ -20,8 +21,7 @@ _ft_atoi_base:
     mov r8, rax        ; r8 stock la len
     xor rax, rax
 
-
-    pop rsi                 ; recup les args
+    pop rsi                   ; recup les args
     pop rdi
 
 
@@ -44,8 +44,9 @@ _ft_atoi_base:
     cmp al, 43
     je .skip
 
-    cmp al, 0				; car par de chiffre/lettres  => base vide
+    cmp al, 0                 ; car par de chiffre/lettres  => base vide
     je .end_error
+
 
 
 .save_index_rdi:
@@ -53,7 +54,7 @@ _ft_atoi_base:
     xor rcx, rcx
 
 
-.check_double:                    ; doublon dans la base
+.check_double:                     ; doublon dans la base
     mov r10b, [rsi + rcx]
 
     cmp r10b, 0
@@ -61,9 +62,8 @@ _ft_atoi_base:
     
     mov rdx, rcx       ; rdx = int j,  pour la 2e boucle
 
-
 .while:
-    inc rdx 				; tjrs check apres    '    peut pas avoir doublons  avant, on a deja check
+    inc rdx
     mov r9b, [rsi + rdx]
 
     cmp r9b, 0
@@ -78,7 +78,7 @@ _ft_atoi_base:
 
 .check_base_len:
     pop rcx            ;  reprend la position dans str
-    cmp r8, 2			; len de la BASE est pas in a 2
+    cmp r8, 2            ; len de la BASE est pas in a 2
     jl .end_error
     
     xor rax, rax
@@ -86,17 +86,13 @@ _ft_atoi_base:
 
 
 .index:                                ; boucle compare string et base pour trouver indice (dans dictionnaire de la base)
-    push rbx
-    push r12
-
     mov r10b, [rdi + rcx]            ; le char qu on cherche dans string
     
-	cmp r10b, 0					; fin de string
+    cmp r10b, 0                    ; fin de string
     je .sign
 
     mov r12, 0
     jmp .search_index
-
 
 .atoi: 
     imul rax, r8     ; mul multplie par rax auto, imul prend 2 arg
@@ -110,8 +106,20 @@ _ft_atoi_base:
     je .neg
 
 .end:
-    pop r12
-    pop rbx
+    ret
+
+
+
+
+
+
+
+
+.end_error_pop:
+    pop rcx
+
+.end_error:
+    xor rax, rax
     ret
 
 
@@ -126,29 +134,16 @@ _ft_atoi_base:
     cmp r10b, bl
     je .atoi
 
-    inc r12				; sinon on inc pour tester index suivant de base
+    inc r12                ; sinon on inc pour tester index suivant de base
     jmp .search_index
-
-
-
-.end_error_pop:
-    pop rcx
-
-.end_error:
-    xor rax, rax
-    ret
-
-
 
 .continue:
     inc rcx
     jmp .parsing
 
-
 .continue2:
     inc rcx
     jmp .check_double
-
 
 .skip:
     inc rcx
@@ -162,6 +157,5 @@ _ft_atoi_base:
 .neg:
     neg rax
     jmp .end
-
 
 section .note.GNU-stack noalloc noexec nowrite progbits

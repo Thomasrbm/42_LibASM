@@ -1,0 +1,91 @@
+
+
+
+ca retir le call / ret du segment text 
+
+
+ca fait tout en 1 block 
+
+SANS
+
+
+int carre(int x) { return x * x; }
+
+int main() {
+    return carre(3);
+}
+
+carre:
+    imul edi, edi      ; Multiplication
+    mov  eax, edi
+    ret                 ; <--- Retour forcé (lent)
+
+main:
+    mov  edi, 3
+    call carre          ; <--- Saut vers la fonction (lent)
+    ret
+
+
+
+Avec inline
+
+static inline int carre(int x) { return x * x; }
+
+int main() {
+    return carre(3);
+}
+
+main:
+    mov eax, 9          ; Le compilateur a fait 3*3 au repos !
+    ret                 ; Pas de CALL, pas de RET supplémentaire.
+
+
+
+
+
+
+
+
+
+
+-------------------  OU USE ?   -------------------
+
+
+1/ getters / setter ou fonction d une ligne
+
+le temps de call etc est plus long que la fonction donc go opti
+
+2/ opti les boucle si un call dedans
+
+int square(int x) { return x * x; }
+
+for (int i = 0; i < 1000000; i++) {
+    sum += square(i);
+}
+
+L_loop:
+    mov  edi, eax      ; On prépare l argument i
+    call square        ; <--- LE PÉAGE : Saut vers la fonction
+    add  ebx, eax      ; sum += résultat
+    inc  eax           ; i++
+    cmp  eax, 1000000
+    jl   L_loop
+
+	
+DEVIENT 
+
+L_loop:
+    mov  edx, eax      ; On copie i dans edx
+    imul edx, edx      ; i * i (Le code est ICI)
+    add  ebx, edx      ; sum += résultat
+    inc  eax           ; i++
+    cmp  eax, 1000000
+    jl   L_loop
+
+3/ compiler opti 
+
+static inline int multiplier(int a, int b) { return a * b; }
+int res = multiplier(10, 5);
+
+Le compilateur ne génère même pas de multiplication.
+Il voit que ce sont des constantes et écrit directement mov eax, 50

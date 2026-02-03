@@ -1,12 +1,12 @@
-extern lst_new
+extern _ft_lst_new
 
 section .text
-	global push_front
+	global _ft_list_push_front
 
-push_front:
+_ft_list_push_front:
 	push rdi
 	mov rdi, rsi
-	call lst_new
+	call _ft_lst_new
 	pop rdi
 
 	test rax, rax
@@ -30,3 +30,7 @@ push_front:
 ;[rax + 8], [rdi]
 ;**begin = rax
 ;mov rdi, rax
+
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits

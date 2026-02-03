@@ -1,0 +1,14 @@
+Pour 2 pointeurs
+
+
+De base le compil  a peur et dit "Et si les 2 pointe au meme endroit ?"
+donc rajoute des operation asm pour pas prendre de risque
+
+
+
+
+restrict assure au compilateur que ca pointe pas vers le meme endroit.
+
+
+
+Faut etre sur qu y aura pas d overlap. 

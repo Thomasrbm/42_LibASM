@@ -1,0 +1,93 @@
+
+
+AGU = Address Generation Unit
+
+Use LEA  = (load effective address)
+
+
+
+Derriere chaque instruction qui touche a la memoire on use lea 
+
+
+crochets  =  [rbx + 4] 
+
+push pop etc
+
+
+c est AGU qui calcul ca. et envoie au BUS memoire pour aller chercher la donne 
+
+
+AGU = Address Generation Unit
+
+
+------------------------------------------  CALCUL D ADRESSE  ------------------------------------------
+
+
+Adresse   = Base + (Index × Scale) + Displacement
+
+
+ex : 
+
+struct Etudiant {
+    int id;    // 4 octets (position 0)
+    int note;  // 4 octets (position 4)
+};
+
+struct Etudiant tableau[10]; // tab de 10 etudiants
+int i = 3;
+
+// On veut faire : tableau[i].note
+
+
+
+
+Élément du Code C	Rôle dans la formule	Valeur / Registre
+tableau					Base					rbx (L adresse mémoire du 1er octet)
+i						Index					rcx (Contient le chiffre 3)
+struct Etudiant			Scale					8 (Car int id (4) + int note (4) = 8 octets)
+.note				Displacement				4 (On saute les 4 octets de id pour arriver à note)
+
+
+Adresse Finale=  Debut du Tableau + 24 +4  =  Debut + 28
+
+
+
+------------------------------------------  PK PLUS RAPIDE ??? ------------------------------------------
+
+
+
+
+lea rax, [rdi*4]     => plus rapide que imul / mul
+imul eax, edi, 4
+
+imul = ecrase value, plusieur lignes 3 a 5 cycle de clock    (additionne sur plusieur cycle)
+
+
+lea = 1  = bit shift + assignation   MAIS MODIF PAS LES FLAGS 
+
+
+
+
+
+
+
+------------------------------------------  USAGE DANS LES PROGS  ------------------------------------------
+
+
+
+gdb : lea    0xe66(%rip),%rax        # 0x402008
+
+
+
+lea rax, [rip + 0xe66]  = 
+
+ca mov dans rax ce qu il y a 4 cran apres rip
+
+ICI c est pour la fonction open("fichier")
+
+
+dans le segment text rip en est a un endroit du main. il doit load le nom
+le nom est dans .rodata
+
+
+il a ete stocker a l adress  0xe66 apres la ou est rip donc c est comme ca qu on le recup. 

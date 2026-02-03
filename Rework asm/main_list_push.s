@@ -1,6 +1,6 @@
 extern printf
-extern push_front
-extern lst_new
+extern _ft_list_push_front
+extern _ft_lst_new
 extern malloc
 
 section .bss
@@ -16,12 +16,12 @@ section .text
 
 main:
     mov rdi, data1
-    call lst_new
+    call _ft_lst_new
     mov [list_head], rax
 
     mov rdi, list_head
     mov rsi, data2
-    call push_front
+    call _ft_list_push_front
 
     mov rdi, format
     mov rbx, [list_head]   
@@ -39,3 +39,5 @@ main:
 
 .done:
     ret
+
+
