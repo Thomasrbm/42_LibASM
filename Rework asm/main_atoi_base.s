@@ -1,6 +1,6 @@
-extern _ft_atoi_base
+extern ft_atoi_base
 extern printf
-extern _ft_strlen
+extern ft_strlen
 
 
 section .data
@@ -14,7 +14,7 @@ section .text
 main:
 	mov rdi, string
 	mov rsi, base
-	call _ft_atoi_base
+	call ft_atoi_base
 
 	mov rdi, format
 	mov rsi, rax
@@ -24,3 +24,9 @@ main:
 	ret
 
 
+
+
+
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits

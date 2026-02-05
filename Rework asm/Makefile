@@ -1,39 +1,39 @@
-# Configuration
-NASM = nasm
-CC = gcc
-NASM_FLAGS = -f elf64 -g
-OBJ_DIR = objects
+NAME            = libasm.a
 
-# Règle magique pour n'importe quelle fonction (ex: make strlen)
-%:
+SRC_DIR         = srcs
+OBJ_DIR         = objs
+
+SOURCES         = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
+BONUS_SOURCES   = ft_atoi_base.s ft_list_push_front.s ft_list_size.s ft_list_sort.s ft_list_remove_if.s ft_remove_data.s ft_lst_new.s
+
+SRCS            = $(addprefix $(SRC_DIR)/, $(SOURCES))
+OBJS            = $(addprefix $(OBJ_DIR)/, $(SOURCES:.s=.o))
+
+BONUS_SRCS      = $(addprefix $(SRC_DIR)/, $(BONUS_SOURCES))
+BONUS_OBJS      = $(addprefix $(OBJ_DIR)/, $(BONUS_SOURCES:.s=.o))
+
+NASM            = nasm
+NASM_FLAGS      = -f elf64
+RM              = rm -rf
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
+
+bonus: $(OBJS) $(BONUS_OBJS)
+	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 	@mkdir -p $(OBJ_DIR)
-	
-	@# Assemblage des fichiers source .s
-	$(NASM) $(NASM_FLAGS) ft_$*.s -o $(OBJ_DIR)/ft_$*.o
-	$(NASM) $(NASM_FLAGS) main_$*.s -o $(OBJ_DIR)/main_$*.o
-	
-	@# Linkage avec gcc (pour la libc) et désactivation du PIE pour faciliter GDB
-	$(CC) -no-pie $(OBJ_DIR)/main_$*.o $(OBJ_DIR)/ft_$*.o -o test_$*
-	
-	@echo "✨ Compilation finie pour $*"
-	@echo "📁 Objets stockés dans : $(OBJ_DIR)/"
-	@echo "🚀 Exécutable créé : ./test_$*"
+	$(NASM) $(NASM_FLAGS) $< -o $@
 
-all:
-	@echo "Utilisation : make <nom_fonction> (ex: make strlen)"
-
-# Supprime uniquement les fichiers objets et le dossier
 clean:
-	rm -rf $(OBJ_DIR)
-	@echo "🧹 Dossier $(OBJ_DIR) supprimé."
+	$(RM) $(OBJ_DIR)
 
-# Supprime les objets ET tous les exécutables de test
 fclean: clean
-	rm -f test_*
-	@echo "🗑️  Tous les exécutables 'test_*' ont été supprimés."
+	$(RM) $(NAME)
 
-# Recommence tout à zéro
-re: fclean
-	@echo "🔄 Remise à zéro effectuée."
+re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re bonus

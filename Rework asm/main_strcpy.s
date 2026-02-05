@@ -1,4 +1,4 @@
-extern _ft_strcpy
+extern ft_strcpy
 extern printf
 
 section .data
@@ -15,11 +15,11 @@ section .text
 main:
 	mov rdi, dest
 	mov rsi, string
-	call _ft_strcpy
+	call ft_strcpy
 	mov rdi, format
 	mov rsi, rax
 	xor rax, rax
 	call printf
 	ret
 
-
+section .note.GNU-stack noalloc noexec nowrite progbits

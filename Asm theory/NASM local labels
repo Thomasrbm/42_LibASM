@@ -1,0 +1,10 @@
+
+
+https://www.tortall.net/projects/yasm/manual/html/nasm-local-label.html 
+
+Les labels avec "." devant en nasm sont considerer local et ne sont pas ajouter a la 
+table des symbols
+
+
+
+dans un .a / .o  c est la ou sont indexer les segment text des code a prendre.

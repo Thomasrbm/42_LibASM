@@ -1,5 +1,5 @@
 extern printf
-extern _ft_strlen
+extern ft_strlen
 
 
 section .data
@@ -13,7 +13,7 @@ section .text
 
 main:
 	mov rdi, string
-	call _ft_strlen
+	call ft_strlen
 	mov rsi, rax
 	mov rdi, format
 	xor rax, rax
@@ -22,4 +22,4 @@ main:
 
 
 
-
+section .note.GNU-stack noalloc noexec nowrite progbits
