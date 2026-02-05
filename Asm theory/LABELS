@@ -1,0 +1,8 @@
+
+
+
+Se sont des adresses memoire pour aller faire jump le EIP vers l adresse ou se trouve l instruction.
+
+
+
+Les mots dans la section .data  Ou les bloc de code le sont aussi (bien que stock dans le segment text)

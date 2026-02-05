@@ -1,4 +1,4 @@
-extern _ft_read
+extern ft_read
 extern printf
 
 section .data
@@ -20,8 +20,13 @@ main:
 	mov rdi, rax
 	mov rsi, buff
 	mov rdx, 10
-	call _ft_read
+	call ft_read
 	mov rdi, format
 	mov rsi, rax
 	xor rax, rax
 	call printf
+
+
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits

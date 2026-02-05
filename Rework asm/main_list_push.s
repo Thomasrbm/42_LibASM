@@ -1,6 +1,6 @@
 extern printf
-extern _ft_list_push_front
-extern _ft_lst_new
+extern ft_list_push_front
+extern ft_lst_new
 extern malloc
 
 section .bss
@@ -16,12 +16,12 @@ section .text
 
 main:
     mov rdi, data1
-    call _ft_lst_new
+    call ft_lst_new
     mov [list_head], rax
 
     mov rdi, list_head
     mov rsi, data2
-    call _ft_list_push_front
+    call ft_list_push_front
 
     mov rdi, format
     mov rbx, [list_head]   
@@ -41,3 +41,7 @@ main:
     ret
 
 
+
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits

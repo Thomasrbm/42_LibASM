@@ -21,7 +21,7 @@ MAIS __errno_location ou printf   sont elles aussi a des endroit random a chaque
 
 
 Le PLT (Procedure Linkage Table)
-permet de retrouver les addresses de chacun
+permet de retrouver les addresses de chacun  ===> creer au linkage par le compilateur
 
 
 
@@ -29,3 +29,28 @@ no-pie = met tout le monde a adresse fixe
 
 
 wrt ..plt  = use la PLT
+
+
+
+
+
+
+GOT VS PLT
+
+Plt = segment text, juste instruction
+GOT = stock les adresses de fonction libc par ex dans le pc
+
+
+c est de l opti. plt va demander a la GOT l adresse de malloc.
+La got stock l adresse
+
+au debut la got n as pas l adresse de malloc mais apres elle la garde en memoire (elle peut le faire car en section .data)
+
+plt ne pourrait pas elle devrait rechercher a chaque fois pck la .text est en readonly
+
+
+
+
+Les fonction libc le demande obligatoiremenet a la compil
+
+c est differente des tables de symbols 

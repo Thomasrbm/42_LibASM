@@ -1,21 +1,23 @@
 extern ft_strdup
 extern printf
 
+
 section .data
-	string db "hello", 0
-	format db "dup = %s", 10, 0
+	msg db "hello", 0
+	format db "dupped : %s", 0
+
 
 section .text
 	global main
 
 main:
-	mov rdi, string
+	mov rdi, msg
 	call ft_strdup
+
 	mov rdi, format
 	mov rsi, rax
 	xor rax, rax
 	call printf wrt ..plt
+
 	ret
 
-
-section .note.GNU-stack noalloc noexec nowrite progbits

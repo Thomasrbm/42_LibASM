@@ -1,0 +1,17 @@
+
+section .note.GNU-stack noalloc noexec nowrite progbits
+
+
+certains compilateur mette du code executable dans la stack
+(normalement c est secured dans la section .text)
+
+
+
+Probleme un attaque par injection (stack overflow)
+peut faire exec du code malveillant.
+
+
+
+
+sans preciser la section le compil prend full risque mais 
+veut la compatibilite au max et rend la stack executable.

@@ -1,4 +1,4 @@
-extern _ft_write
+extern ft_write
 
 section .data
 	to_write db "to_read.txt", 0
@@ -16,6 +16,14 @@ main:
 	mov rdi, rax
 	mov rsi, text
 	mov rdx, 4
-	call _ft_write
+	call ft_write
 	ret
 
+
+
+
+
+section .note.GNU-stack noalloc noexec nowrite progbits
+
+
+; compil avec ld = erreur si use errno loc (de libc)
