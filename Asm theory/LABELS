@@ -1,5 +1,5 @@
 
-
+C est des alias vers des adresses memoire (mais en text)
 
 Se sont des adresses memoire pour aller faire jump le EIP vers l adresse ou se trouve l instruction.
 

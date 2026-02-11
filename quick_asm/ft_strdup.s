@@ -5,42 +5,29 @@ section .text
 	global ft_strdup
 
 ft_strdup:
-	call ft_strlen
+	call ft_strlen wrt ..plt
+	inc rax
 	push rdi
-
-
-.alloc:
 	mov rdi, rax
 	call malloc wrt ..plt
-
-	test rax, rax
-	jz .error
-
 	pop rdi
+
 	xor rcx, rcx
 
-.fill:
-	mov r8b, byte [rdi + rcx]
-	mov byte [rax + rcx], r8b
-
-	cmp r8b, 0
+.alloc:
+	mov rsi, [rdi + rcx]
+	mov [rax + rcx], rsi
+	
+	cmp byte [rax + rcx], 0
 	je .end
 
-
 	inc rcx
-	jmp .fill
+	jmp .alloc
 
 .end:
 	ret
 
-.error:
-	pop rdi
-	ret
 
 
 
-
-
-
-
-
+section .note.GNU-stack noalloc noexec nowrite progbits

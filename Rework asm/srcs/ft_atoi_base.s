@@ -3,10 +3,6 @@ extern ft_strlen
 section .text
     global ft_atoi_base
 
-
-
-
-
 ft_atoi_base:
     xor rcx, rcx
     xor rdx, rdx
@@ -24,35 +20,33 @@ ft_atoi_base:
     pop rsi                   ; recup les args
     pop rdi
 
-
-
 .parsing:
     mov al, [rdi + rcx]
 
     cmp al, 32
     je .skip
-
     cmp al, 9
     je .skip
-
+    cmp al, 10
+    je .skip
+    cmp al, 11
+    je .skip
+    cmp al, 12
+    je .skip
     cmp al, 13
+    je .skip
+    cmp al, 43
     je .skip
 
     cmp al, 45
     je .set_neg
 
-    cmp al, 43
-    je .skip
-
     cmp al, 0                 ; car par de chiffre/lettres  => base vide
     je .end_error
-
-
 
 .save_index_rdi:
     push rcx
     xor rcx, rcx
-
 
 .check_double:                     ; doublon dans la base
     mov r10b, [rsi + rcx]
@@ -74,16 +68,12 @@ ft_atoi_base:
     
     jmp .while
 
-
-
 .check_base_len:
     pop rcx            ;  reprend la position dans str
     cmp r8, 2            ; len de la BASE est pas in a 2
     jl .end_error
     
     xor rax, rax
-
-
 
 .index:                                ; boucle compare string et base pour trouver indice (dans dictionnaire de la base)
     mov r10b, [rdi + rcx]            ; le char qu on cherche dans string
@@ -108,23 +98,12 @@ ft_atoi_base:
 .end:
     ret
 
-
-
-
-
-
-
-
 .end_error_pop:
     pop rcx
 
 .end_error:
     xor rax, rax
     ret
-
-
-
-
 
 .search_index:
     mov bl, [rsi + r12]
