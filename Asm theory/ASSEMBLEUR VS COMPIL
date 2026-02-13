@@ -1,0 +1,75 @@
+
+
+
+ca convertie les instrcution en code machie en 1 pour 1
+
+
+1 ligne = 1 code binaire
+
+
+le compilateur c est plus 1 ligne = x code binaire car plus d abstraction
+
+
+
+mais en gros a la fin tu converti des mots en binaire
+et tu fait des .o donc cest pas interpreteur
+
+
+
+
+
+
+
+Y a les   normes intel  = Instruction Destination, Source.
+
+et AT & T inverse
+
+
+
+
+
+Norme intel ont des diff 
+
+=========================================================================================================================================================================================================================================
+																									NORMES INTEL
+=========================================================================================================================================================================================================================================
+
+
+
+
+
+; --- Exemple NASM ---
+section .data
+    ma_variable dw 0x1234      ; On définit un "word" (16 bits)
+
+section .text
+    mov ax, [ma_variable]     ; On met la VALEUR dans AX
+    mov bx, ma_variable       ; On met l'ADRESSE dans BX
+
+
+
+
+
+
+
+; --- Exemple MASM ---
+.data
+    ma_variable dw 1234h
+
+.code
+    mov ax, ma_variable       ; MASM comprend "donne moi la valeur"
+    mov bx, offset ma_variable ; Il faut le mot "offset" pour l'adresse
+
+
+
+; --- Exemple FASM ---
+format ELF executable          ; On peut définir le format directement
+entry main
+
+segment readable writeable
+    ma_variable dw 0x1234
+
+segment readable executable
+main:
+    mov ax, [ma_variable]     ; Valeur
+    mov bx, ma_variable       ; Adresse

@@ -1,0 +1,49 @@
+
+
+
+
+
+
+fonction qui permet de passer de user mode a kernell mode
+
+
+
+
+
+Passe par l'OS pour ecrire, envoyer de donnnes reseau ou acceder aux peripheriques materiels 
+
+
+
+
+On passe par le syscall pour ces operation pour standardiser et securise les possibilite avec ces actions critiques du pc.
+Si on laissait en libre acces alors tout serait permit. 
+
+
+
+Le kernell verifie les droits, peut tu demande tel actiona a tel endroit etc. si oui il le fait pour toi
+
+
+=========================================================================================================================================================================================================================================
+																									RINGS DE PRIVILEGES
+=========================================================================================================================================================================================================================================
+
+
+https://en.wikipedia.org/wiki/Protection_ring
+
+
+Ring 3 user
+1 et 2 pour drivers moins critique (peu use askip)
+Ring 0 Kernell
+
+-1 les hyperviseurs
+-2 le SMM, gerer par le constructeur carte mere directement.    = residu du BIOS etc   https://en.wikipedia.org/wiki/System_Management_Mode
+
+
+
+=========================================================================================================================================================================================================================================
+																									suspens prog en cours
+=========================================================================================================================================================================================================================================
+
+
+
+Interruption system pour passer d un processus a l autre.
