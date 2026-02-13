@@ -1,0 +1,24 @@
+
+
+
+Ascii  128   symbols      1 octet (dernier bit unused)
+
+
+UTF-8  de 1 a 4 octets
+UTF-16	2 ou 4 octets
+UTF-32	Fixe : 4 octets
+
+
+
+
+Utf 8 retro compat avec ascii.  (pour compter char 1 par 1  use des libs special en C libicu)
+
+
+
+pour 16 et 32 on use char16_t et  char32_t
+Faut donc savoir  a l avance que la fonction prend que des UTF 32 et use le type approprier.
+
+ou use dd au lieu de db
+
+
+Utf 8 et Ascii sont plus retrocompat. 

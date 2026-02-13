@@ -1,0 +1,27 @@
+
+
+
+1/ OPTIMISATION = Stockage par avance dans la RAM et optimisation 
+
+	.bss = 0 Octets sur l executable, mais prepare la RAM
+
+
+
+2/ SECURITE = Gestion des privilegs 
+
+
+	.text = lecture et exec (pas ecriture sinon modif le code attendu)
+
+
+	.data / .bss = lecture et ecriture mais pas exec
+
+
+	differencier ce qui doit etre exec dans les section et non exec dans d autres NI dans la stack.
+	si tout etant dans la ram sans distinction ou pourrait pas savoir. 
+
+
+3/ PERSISTANCE 
+
+	dans la stack les donnes stock sont temp et delete a la fin de la ft.
+
+	les instruction doivent rester accessible tout le long et cest plus opti au meme endroit.

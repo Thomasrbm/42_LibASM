@@ -1,0 +1,24 @@
+
+
+
+cmpsb   Compare String Byte 
+
+
+repe  Repeat while Equal
+repne Repeat not while Equal
+
+scasb Scan String Byte
+
+
+
+
+mov al, 0            ; On cherche le \0
+mov rcx, -1          ; On met le compteur au max
+repne scasb          ; Cherche 0 tant que ce n'est pas trouvé
+
+
+
+Load / Store String Byte
+
+loddsb      = incremente rdi en compteur implicitement
+strosb
