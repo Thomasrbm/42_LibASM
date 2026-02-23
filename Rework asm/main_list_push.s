@@ -3,6 +3,13 @@ extern ft_list_push_front
 extern ft_lst_new
 extern malloc
 
+
+; struc t_list
+;     .data:  resq 1    ; void*        — 8 octets
+;     .next:  resq 1    ; struct*      — 8 octets
+; endstruc
+
+
 section .bss
     list_head resq 1    ; *begin
 
