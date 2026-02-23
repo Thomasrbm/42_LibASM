@@ -18,12 +18,11 @@ ft_atoi_base:
     jz .error
     mov r14, rax
     
-    mov r8, r12                     ; r8 = pointeur courant (en bytes)
+    mov rsi, r12
     xor r15d, r15d
 
 .skip:
-    mov eax, [r8]                   ; Lire 4 bytes
-    add r8, 4                       ; Avancer de 4 bytes
+    lodsd                   ; au lieu de lodsb
     cmp eax, 32
     je .skip
     sub eax, 9
@@ -36,29 +35,27 @@ ft_atoi_base:
     jnz .convert
     inc r15
     jmp .skip
-
 .convert:
-    xor r10d, r10d                  ; résultat
-    sub r8, 4                       ; Reculer car on est allé trop loin
-
+    xor r8d, r8d
+    sub rsi, 4              ; au lieu de dec rsi
 .loop:
-    mov edi, [r8]                   ; Lire caractère (4 bytes)
+    mov edi, dword [rsi]    ; au lieu de movzx edi, byte [rsi]
     test edi, edi
     jz .done
-    push r8
-    mov esi, edi
+    push rsi
+    mov esi, edi            ; le caractère UTF-32 (valeur 32 bits)
     mov rdi, r13
     call ft_strindex
-    pop r8
+    pop rsi
     cmp rax, -1
     je .done
-    imul r10, r14
-    add r10, rax
-    add r8, 4                       ; Avancer de 4 bytes
+    imul r8, r14
+    add r8, rax
+    add rsi, 4              ; au lieu de inc rsi
     jmp .loop
 
 .done:
-    mov rax, r10
+    mov rax, r8
     bt r15, 0
     jnc .end
     neg rax
@@ -74,4 +71,4 @@ ft_atoi_base:
     pop r12
     ret
 
-section .note.GNU-stack noalloc noexec nowrite progbits
+section .note.GNU-stack noalloc noexec nowrite progbits  
