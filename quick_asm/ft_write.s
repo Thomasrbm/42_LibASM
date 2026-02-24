@@ -3,6 +3,8 @@ extern __errno_location
 section .text
 	global ft_write
 
+
+
 ft_write:
 	mov rax, 1
 	syscall
@@ -12,7 +14,6 @@ ft_write:
 
 	ret
 
-
 .error:
 	neg rax
 	push rax
@@ -21,6 +22,7 @@ ft_write:
 	mov [rax], rdi
 	mov rax, -1
 	ret
+
 
 
 

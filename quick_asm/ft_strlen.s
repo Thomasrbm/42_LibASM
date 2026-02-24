@@ -1,7 +1,7 @@
 
-
 section .text
 	global ft_strlen
+
 
 ft_strlen:
 	xor rax, rax
@@ -13,7 +13,10 @@ ft_strlen:
 	inc rax
 	jmp .count
 
+
 .end:
 	ret
+
+
 
 section .note.GNU-stack noalloc noexec nowrite progbits
