@@ -5,8 +5,13 @@ section .text
 	global ft_strdup
 
 ft_strdup:
-	call ft_strlen wrt ..plt
+	xor rax, rax
+
+	call ft_strlen
 	inc rax
+
+
+.alloc:
 	push rdi
 	mov rdi, rax
 	call malloc wrt ..plt
@@ -14,15 +19,16 @@ ft_strdup:
 
 	xor rcx, rcx
 
-.alloc:
-	mov rsi, [rdi + rcx]
-	mov [rax + rcx], rsi
-	
-	cmp byte [rax + rcx], 0
+.fill:
+	mov dl, byte [rdi + rcx]
+	mov byte [rax + rcx], dl
+
+	cmp dl, 0
 	je .end
 
 	inc rcx
-	jmp .alloc
+	jmp .fill
+
 
 .end:
 	ret

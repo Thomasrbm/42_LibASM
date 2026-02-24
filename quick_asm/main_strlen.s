@@ -1,7 +1,6 @@
 extern printf
 extern ft_strlen
 
-
 section .data
 	string db "test", 0
 	format db "len = %d", 0
@@ -10,16 +9,20 @@ section .text
 	global main
 
 
-
 main:
-
-	lea rdi, [rel string]
+	lea rdi, [rel string]    ; PK rel PK lea et pas mov ici ? 
 	call ft_strlen
 
-	lea rdi, [rel format]     ; rel  va chercher l adresse dynamique (pie), donc lea, sinon tu mov l adress et plus la string.
-	mov rsi, rax 
+	lea rdi, [rel format]
+	mov rsi, rax
 	xor rax, rax
 	call printf wrt ..plt
-	ret     				; peut crash ou non sans. (selon si tu met en PIE ou non) remet le EIP au bon endroit. sinon le eip va try 
+
+	ret
+
+
+
+
+
 
 section .note.GNU-stack noalloc noexec nowrite progbits
