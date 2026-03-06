@@ -1,22 +1,24 @@
 %include "t_list.inc"
+extern ft_strcmp
+
 
 section .text
     global ft_list_sort
 
 ft_list_sort:
-    mov r8, rdi
-    mov r9, rsi
-
     test rdi, rdi
     jz .end
+
+    mov r8, rdi
+    mov r9, rsi
 
 .restart:
     xor r10, r10
     mov r11, r8
 
-.cmp:
+.sort:
     mov rdi, [r11]
-    mov rsi, [rdi + t_list.next]
+    mov rsi, [r11 + t_list.next]
 
     test rsi, rsi
     jz .check
@@ -26,29 +28,26 @@ ft_list_sort:
     call r9 wrt ..plt
     jle .next
 
-swap:
+.swap:
     mov rax, [r11]
-    mov rdx, [rax + t_list.next]
+    mov rdx,  [rax + t_list.next]
     mov rcx, [rdx + t_list.next]
 
     mov [rax + t_list.next], rcx
     mov [rdx + t_list.next], rax
-
-    mov [r11], rdx ;  r8 pointe vers debut.,  puis pointeur etc
-    lea r11, [rdx + t_list.next] ; maj ptr pour skip
+    mov [r11], rdx
+    lea r11, [rdx + t_list.next]
     mov r10, 1
-    jmp .cmp
+    jmp .sort
 
 .next:
     mov rax, [r11]
     lea r11, [rax + t_list.next]
-    jmp .cmp
+    jmp .sort
 
-.check
+.check:
     test r10, r10
-    jnz  .restart
+    jnz .restart
 
 .end:
     ret
-
-section .note.GNU-stack noalloc noexec nowrite progbits

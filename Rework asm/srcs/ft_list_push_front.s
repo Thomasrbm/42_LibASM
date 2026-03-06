@@ -1,4 +1,4 @@
-extern ft_lst_new
+extern ft_list_new
 
 section .text
 	global ft_list_push_front
@@ -10,7 +10,7 @@ ft_list_push_front:
 
 	push rdi
 	mov rdi, rsi
-	call ft_lst_new
+	call ft_list_new
 	pop rdi
 
 	test rax, rax
