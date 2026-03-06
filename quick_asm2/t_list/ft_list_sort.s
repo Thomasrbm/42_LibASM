@@ -30,12 +30,10 @@ swap:
     mov rax, [r11]
     mov rdx, [rax + t_list.next]
     mov rcx, [rdx + t_list.next]
-
     mov [rax + t_list.next], rcx
     mov [rdx + t_list.next], rax
-
-    mov [r11], rdx ;  r8 pointe vers debut.,  puis pointeur etc
-    lea r11, [rdx + t_list.next] ; maj ptr pour skip
+    mov [r11], rdx
+    lea r11, [rdx + t_list.next] 
     mov r10, 1
     jmp .cmp
 

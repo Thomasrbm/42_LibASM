@@ -1,0 +1,7 @@
+
+
+renvoit dans rax l'adresse de errno
+
+
+ainsi accèder a rax entre []  accède à errno
+
