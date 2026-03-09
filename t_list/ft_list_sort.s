@@ -1,53 +1,64 @@
 %include "t_list.inc"
-extern ft_strcmp
-
 
 section .text
     global ft_list_sort
 
 ft_list_sort:
+    push r12
+    push r13
+    push r14
+    push r15
+
     test rdi, rdi
     jz .end
 
-    mov r8, rdi
-    mov r9, rsi
+    mov r12, rdi
+    mov r13, rsi
 
 .restart:
-    xor r10, r10
-    mov r11, r8
+    xor r14, r14
+    mov r15, r12
 
 .sort:
-    mov rdi, [r11]
-    mov rsi, [r11 + t_list.next]
+    mov rax, [r15]
 
-    test rsi, rsi
+    mov rdx, [rax + t_list.next]    ; fin de liste
+    test rdx, rdx
     jz .check
 
-    mov rdi, [rdi + t_list.data]
-    mov rsi, [rsi + t_list.data]
-    call r9 wrt ..plt
+
+    mov rdi, [rax + t_list.data]
+    mov rsi, [rdx + t_list.data]
+    call r13
+
     jle .next
 
+
+
 .swap:
-    mov rax, [r11]
-    mov rdx,  [rax + t_list.next]
+    mov rax, [r15]
+
+    mov rdx, [rax + t_list.next]
     mov rcx, [rdx + t_list.next]
 
     mov [rax + t_list.next], rcx
     mov [rdx + t_list.next], rax
-    mov [r11], rdx
-    lea r11, [rdx + t_list.next]
-    mov r10, 1
+    mov [r15], rdx
+    mov r14, 1
     jmp .sort
 
 .next:
-    mov rax, [r11]
-    lea r11, [rax + t_list.next]
+    mov rax, [r15]
+    lea r15, [rax + t_list.next]
     jmp .sort
 
 .check:
-    test r10, r10
+    test r14, r14
     jnz .restart
 
 .end:
+    pop r15
+    pop r14
+    pop r13
+    pop r12
     ret

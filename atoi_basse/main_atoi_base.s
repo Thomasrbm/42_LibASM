@@ -21,6 +21,7 @@ main:
 	xor rax, rax
 	call printf wrt ..plt
 	
+	ret
 
 
 section .note.GNU-stack noalloc noexec nowrite progbits

@@ -1,35 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct s_list
-{
-	void            *data;
-	struct s_list   *next;
+typedef struct s_list {
+    void            *data;
+    struct s_list   *next;
 } t_list;
 
-void    ft_list_push_front(t_list **head, void *data);
-t_list	*ft_list_new(void *data);
-int ft_list_size(t_list *begin);
+// Prototype de ta fonction ASM
+extern void ft_list_sort(t_list **begin_list, int (*cmp)());
 
-int main()
-{
-	t_list  *head;
-	t_list *first;
-	
-	first = ft_list_new("1");
+// Fonction de comparaison simple (strcmp)
+int ft_strcmp(const char *s1, const char *s2) {
+    return strcmp(s1, s2);
+}
 
-	int result = ft_list_size(first);
-	printf("size = %d\n", result);
+// Utilitaire pour créer un nouveau maillon
+t_list *new_node(char *str) {
+    t_list *node = malloc(sizeof(t_list));
+    node->data = str;
+    node->next = NULL;
+    return node;
+}
 
+int main() {
+    // Construction d'une liste : "C" -> "A" -> "B"
+    t_list *c = new_node("C");
+    t_list *a = new_node("A");
+    t_list *b = new_node("B");
 
-	head = first;
-	ft_list_push_front(&head, "2");
+    c->next = a;
+    a->next = b;
 
-	printf("data = %s\n", (char *)head->data);
+    t_list *head = c;
 
-	result = ft_list_size(head);
-	printf("size = %d\n", result);
+    printf("Avant tri : ");
+    for (t_list *tmp = head; tmp; tmp = tmp->next) printf("%s ", (char *)tmp->data);
+    printf("\n");
 
+    printf("Tentative de tri...\n");
+    // On passe l'adresse du pointeur de tête (&head)
+    ft_list_sort(&head, ft_strcmp);
 
-	return 0;
+    printf("Après tri  : ");
+    for (t_list *tmp = head; tmp; tmp = tmp->next) printf("%s ", (char *)tmp->data);
+    printf("\n");
+
+    return 0;
 }
