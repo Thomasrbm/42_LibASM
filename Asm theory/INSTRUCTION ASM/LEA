@@ -1,4 +1,15 @@
 
+------------------------------------------  EQUIVALENT EN C  ------------------------------------------
+
+
+*c = &d 
+
+le &
+
+
+
+------------------------------------------    ------------------------------------------
+
 
 AGU = Address Generation Unit
 
@@ -18,6 +29,15 @@ c est AGU qui calcul ca. et envoie au BUS memoire pour aller chercher la donne
 
 
 AGU = Address Generation Unit
+
+
+
+
+
+
+
+
+
 
 
 ------------------------------------------  CALCUL D ADRESSE  ------------------------------------------

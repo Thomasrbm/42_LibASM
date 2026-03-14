@@ -1,0 +1,36 @@
+
+
+
+wrt ..plt
+
+
+With Respect To
+
+Procedure Linkage Table
+
+
+
+
+Au lieu d aller dans la libc directement (vue que son adress est PIE)
+
+tu passe par la table de linkage
+
+
+le code de fonction libc est pas dans ton code.
+
+
+
+
+le programme ld-linux.so 
+=> va chercher les adresse en regarder les fonction needed
+Ecrit dans La GOT
+
+(global offset table)
+
+
+La GOT (read write, pas exec)
+=> stock les adresse en brut et le redemmande a chaque fois au prog ld linux 
+
+
+La PLT (Read exec, pas write) = pour pas qu on puisse faire exec n importe quoi.
+=> instruction exectuable jmp a l adresse de la GOT

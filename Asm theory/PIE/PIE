@@ -1,0 +1,35 @@
+
+
+
+Sans PIE ton programme 
+
+des la compilation l emplacement memoire de ton code est hardcode
+a chaque exec il est au meme endroit 
+
+
+
+AVEC PIE a chaque exec il change d emplacement.
+
+
+
+
+on va use l adressage relatif.
+
+
+soit default rel en haut du fichier
+
+
+soit rel preciser a chaque fois que tu le veux
+
+
+
+
+rel au lieu d aller chercher a adresse fixe
+il va dire (je sais que dans ce code la valer ... est situer tel offset plus loin de ...  alors va la chercher la.)
+
+
+
+
+
+lea va calculer cette offset et non prendre les value mais mettre
+le pointeur au debut de la chaine.

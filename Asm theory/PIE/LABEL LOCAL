@@ -1,0 +1,12 @@
+
+
+Quel interet que les labels local n add pas a table des symbols ? 
+
+
+eviter les collision de symbole tu peux avoir pleins de fonction
+avec des .loop
+
+alors que tu peux avoir que 1 ft_strlen
+
+
+taille des table de symbol plus courte. opti
