@@ -1,0 +1,15 @@
+Le cpu avec le RIP ne voit que des adresses.
+
+
+
+dependant de l architecture elle a une taille differente donc un nombre de surface adressable differente.
+
+
+Soit le rip lit une adresse pour y mettre une valeur.  
+
+
+mov [string], "asd"   = met asd a l adresse de string AKA  tel suite de bits a cette adresse.
+
+
+
+Passe par le BUS et y met les octets.
